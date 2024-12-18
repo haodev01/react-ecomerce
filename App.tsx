@@ -1,11 +1,12 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-
+import {AppStackNavigator} from '~/routes/AppStackNavigator.tsx';
+import {Provider} from 'react-redux';
+import {store} from '~/store';
 function App(): React.JSX.Element {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <Provider store={store}>
+      <AppStackNavigator />
+    </Provider>
   );
 }
 
