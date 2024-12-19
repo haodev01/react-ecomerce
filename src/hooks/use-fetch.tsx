@@ -17,8 +17,16 @@ export const useFetch = () => {
     });
   };
 
+  const putManual = async (url: string, data: Record<string, unknown>) => {
+    const asyncConfig = {
+      accessToken: accessToken as string,
+    };
+    return await http.put(url, data, asyncConfig as any);
+  };
+
   return {
     postManual,
     getManual,
+    putManual,
   };
 };

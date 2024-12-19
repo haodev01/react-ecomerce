@@ -7,6 +7,7 @@ import LoginScreen from '~/screens/auth/login-screen.tsx';
 import RegisterScreen from '~/screens/auth/register-screen.tsx';
 import HomeScreen from '~/screens/home/home-screen.tsx';
 import ConfirmOtpScreen from '~/screens/auth/confirm-otp.tsx';
+import ForgotPassword from '~/screens/auth/forgot-password.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,7 +15,21 @@ export type AllNavigatorParams = {
   LoginScreen: undefined;
   RegisterScreen: undefined;
   HomeScreen: undefined;
-  ConfirmOtpScreen: undefined;
+  ConfirmOtpScreen: {
+    email?: string;
+    type?: string;
+  };
+  ForgotPassword: undefined;
+};
+export type CommonNavigatorParams = {
+  LoginScreen: undefined;
+  RegisterScreen: undefined;
+  HomeScreen: undefined;
+  ConfirmOtpScreen: {
+    email?: string;
+    type?: string;
+  };
+  ForgotPassword: undefined;
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
@@ -22,7 +37,7 @@ export const AppStackNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
-        initialRouteName="LoginScreen"
+        initialRouteName="HomeScreen"
         screenOptions={{
           headerShown: false,
           animation: 'ios_from_right',
@@ -31,6 +46,7 @@ export const AppStackNavigator = () => {
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="ConfirmOtpScreen" component={ConfirmOtpScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       </Stack.Navigator>
     </NavigationContainer>
   );

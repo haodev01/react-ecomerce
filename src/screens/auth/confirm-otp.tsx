@@ -2,46 +2,70 @@ import {OtpInput} from 'react-native-otp-entry';
 import {Text, View} from 'react-native';
 import {useState} from 'react';
 import {AppButton} from '~/components/common';
-import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {CommonNavigatorParams, navigate} from '~/routes/AppStackNavigator.tsx';
+import {LayoutAuth} from '~/components/layouts/layout-auth.tsx';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useFetch} from '~/hooks/use-fetch.tsx';
+import {listApi} from '~/constants';
 
-const ConfirmOtpScreen = () => {
+type Props = NativeStackScreenProps<CommonNavigatorParams, 'ConfirmOtpScreen'>;
+
+const ConfirmOtpScreen = (props: Props) => {
+  const {route} = props;
+
+  const email = route.params?.email;
+  const type = route.params?.type ?? '';
+
   const [otp, setOtp] = useState('');
+  const {putManual} = useFetch();
 
   const handleConfirmOtp = async () => {
-    await navigate('HomeScreen');
+    if (type === 'register') {
+      putManual(`${listApi.CONFIRM_OTP}/${otp}`, {email})
+        .then(async () => {
+          await navigate('HomeScreen');
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
   return (
-    <View className=" flex-1 min-h-screen flex items-center justify-center px-4 ">
-      <Text className="text-base mb-4">
-        Vui lòng nhập OTP bạn nhận được qua email
-      </Text>
-      <OtpInput
-        numberOfDigits={4}
-        focusColor="#1677ff"
-        placeholder="****"
-        onTextChange={value => {
-          setOtp(value);
-        }}
-        theme={{
-          containerStyle: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 12,
-          },
-          pinCodeContainerStyle: {
-            width: 60,
-          },
-        }}
-      />
-      <View className="mt-4 w-full">
-        <AppButton
-          disabled={otp.length < 4}
-          label="Xác nhận"
-          onPress={handleConfirmOtp}
+    <LayoutAuth onBack={() => navigate('HomeScreen')}>
+      <View className=" flex-1 min-h-screen flex mt-4 px-4 ">
+        <Text className="text-2xl font-bold">Xác nhận OTP</Text>
+        <Text className="text-md mb-6">
+          Vui lòng nhập thông tin để tiếp tục
+        </Text>
+        <OtpInput
+          numberOfDigits={6}
+          focusColor="#1677ff"
+          placeholder="******"
+          onTextChange={value => {
+            setOtp(value);
+          }}
+          theme={{
+            containerStyle: {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 12,
+            },
+            pinCodeContainerStyle: {
+              width: 50,
+              height: 50,
+            },
+          }}
         />
+        <View className="mt-4 w-full">
+          <AppButton
+            disabled={otp.length < 6}
+            label="Xác nhận"
+            onPress={handleConfirmOtp}
+          />
+        </View>
       </View>
-    </View>
+    </LayoutAuth>
   );
 };
 
