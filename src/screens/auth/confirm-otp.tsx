@@ -6,7 +6,8 @@ import {CommonNavigatorParams, navigate} from '~/routes/AppStackNavigator.tsx';
 import {LayoutAuth} from '~/components/layouts/layout-auth.tsx';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useFetch} from '~/hooks/use-fetch.tsx';
-import {listApi} from '~/constants';
+import {listApi, routesName} from '~/constants';
+import {useToast} from '~/hooks/use-toast.ts';
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'ConfirmOtpScreen'>;
 
@@ -18,15 +19,17 @@ const ConfirmOtpScreen = (props: Props) => {
 
   const [otp, setOtp] = useState('');
   const {putManual} = useFetch();
+  const {showToast} = useToast();
 
   const handleConfirmOtp = async () => {
     if (type === 'register') {
       putManual(`${listApi.CONFIRM_OTP}/${otp}`, {email})
         .then(async () => {
-          await navigate('HomeScreen');
+          showToast('Đăng ký tài khoản thành công', 'success');
+          await navigate(routesName.LoginScreen);
         })
         .catch(error => {
-          console.log(error);
+          showToast(error?.response?.data?.info?.message, 'error');
         });
     }
   };

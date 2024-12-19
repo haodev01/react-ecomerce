@@ -5,7 +5,7 @@ import {AppButton} from '~/components/common';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {LayoutAuth} from '~/components/layouts/layout-auth.tsx';
 import {useFetch} from '~/hooks/use-fetch.tsx';
-import {listApi} from '~/constants';
+import {listApi, routesName} from '~/constants';
 import Toast from 'react-native-toast-message';
 import {useToast} from '~/hooks/use-toast.ts';
 
@@ -42,7 +42,7 @@ const ConfirmOtpScreen = () => {
     })
       .then(async () => {
         showToast('Thay đổi mật khất thành công', 'success');
-        await navigate('LoginScreen');
+        await navigate(routesName.LoginScreen);
       })
       .catch(error => {
         showToast(error?.response?.data?.info?.message, 'error');

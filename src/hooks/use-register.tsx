@@ -1,7 +1,7 @@
 import {validateEmail} from '~/helpers';
 import {useState} from 'react';
 import {useFetch} from '~/hooks/use-fetch.tsx';
-import {listApi} from '~/constants';
+import {listApi, routesName} from '~/constants';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 
 export const useRegister = () => {
@@ -66,7 +66,7 @@ export const useRegister = () => {
       username,
     })
       .then(async () => {
-        await navigate('ConfirmOtpScreen', {
+        await navigate(routesName.ConfirmOtpScreen, {
           email,
           type: 'register',
         });

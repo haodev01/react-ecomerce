@@ -8,6 +8,10 @@ import RegisterScreen from '~/screens/auth/register-screen.tsx';
 import HomeScreen from '~/screens/home/home-screen.tsx';
 import ConfirmOtpScreen from '~/screens/auth/confirm-otp.tsx';
 import ForgotPassword from '~/screens/auth/forgot-password.tsx';
+import {TabHome} from '~/routes/tab-home.tsx';
+import {routesName} from '~/constants';
+import PostDetailScreen from '~/screens/post/post=detail-screen.tsx';
+import {CommentDetailScreen} from '~/screens/post/comment-detail.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +24,10 @@ export type AllNavigatorParams = {
     type?: string;
   };
   ForgotPassword: undefined;
+  TabHome: undefined;
+  PostDetailScreen: {
+    id: string;
+  };
 };
 export type CommonNavigatorParams = {
   LoginScreen: undefined;
@@ -30,6 +38,10 @@ export type CommonNavigatorParams = {
     type?: string;
   };
   ForgotPassword: undefined;
+  TabHome: undefined;
+  PostDetailScreen: {
+    id: string;
+  };
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
@@ -37,16 +49,34 @@ export const AppStackNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
-        initialRouteName="HomeScreen"
+        initialRouteName={routesName.TabHome}
         screenOptions={{
           headerShown: false,
           animation: 'ios_from_right',
         }}>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="ConfirmOtpScreen" component={ConfirmOtpScreen} />
-        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name={routesName.TabHome} component={TabHome} />
+        <Stack.Screen name={routesName.LoginScreen} component={LoginScreen} />
+        <Stack.Screen
+          name={routesName.RegisterScreen}
+          component={RegisterScreen}
+        />
+        <Stack.Screen name={routesName.HomeScreen} component={HomeScreen} />
+        <Stack.Screen
+          name={routesName.ConfirmOtpScreen}
+          component={ConfirmOtpScreen}
+        />
+        <Stack.Screen
+          name={routesName.ForgotPassword}
+          component={ForgotPassword}
+        />
+        <Stack.Screen
+          name={routesName.PostDetailScreen}
+          component={PostDetailScreen}
+        />
+        <Stack.Screen
+          name={routesName.CommentDetailScreen}
+          component={CommentDetailScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -57,7 +87,7 @@ export function timeout(ms: number): Promise<void> {
 }
 
 export function navigate<K extends keyof AllNavigatorParams>(
-  name: K,
+  name: any,
   params?: AllNavigatorParams[K],
 ) {
   if (navigationRef.isReady()) {
@@ -76,4 +106,14 @@ export function navigate<K extends keyof AllNavigatorParams>(
     ]);
   }
   return Promise.resolve();
+}
+export const goBack = () => {
+  navigationRef.goBack();
+};
+export function getCurrentRouteName() {
+  if (navigationRef.isReady()) {
+    return navigationRef.getCurrentRoute()?.name;
+  } else {
+    return '';
+  }
 }

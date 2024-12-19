@@ -1,9 +1,9 @@
 import {validateEmail} from '~/helpers';
 import {useState} from 'react';
 import {useFetch} from '~/hooks/use-fetch.tsx';
-import {listApi} from '~/constants';
+import {listApi, routesName} from '~/constants';
 import {useAppDispatch} from '~/store/hooks.ts';
-import {changeAccessToken} from '~/store/reducer/auth-reducer.ts';
+import {changeAccessToken, changeUser} from '~/store/reducer/auth-reducer.ts';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {useToast} from '~/hooks/use-toast.ts';
 
@@ -61,10 +61,12 @@ export const useLogin = () => {
       password,
     })
       .then((response: any) => {
+        console.log(response);
         showToast('Đăng nhập thành công', 'success');
         const data = response.returnValue;
+        dispatch(changeUser(data));
         dispatch(changeAccessToken(data.accessToken));
-        navigate('HomeScreen');
+        navigate(routesName.TabHome);
       })
       .catch(error => {
         showToast(error?.response?.data?.info?.message, 'error');

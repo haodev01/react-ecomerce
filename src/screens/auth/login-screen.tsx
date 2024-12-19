@@ -3,12 +3,13 @@ import {AppButton} from '~/components/common';
 import {useLogin} from '~/hooks/use-login.tsx';
 import {LayoutAuth} from '~/components/layouts/layout-auth.tsx';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {routesName} from '~/constants';
 
 const LoginScreen = () => {
   const {email, password, setEmail, setPassword, messageError, handleLogin} =
     useLogin();
   return (
-    <LayoutAuth onBack={() => navigate('HomeScreen')}>
+    <LayoutAuth onBack={() => navigate(routesName.TabHome)}>
       <View className=" flex-1 min-h-screen px-4 mt-4 ">
         <Text className="text-2xl font-bold">Đăng nhập tài khoản</Text>
         <Text className="text-md mb-6">
@@ -40,15 +41,15 @@ const LoginScreen = () => {
         </View>
         <TouchableOpacity
           className="mb-6 text-right"
-          onPress={() => navigate('ForgotPassword')}>
+          onPress={() => navigate(routesName.ForgotPassword)}>
           <Text className="text-right text-base font-medium">
             Quên mật khẩu
           </Text>
         </TouchableOpacity>
-        <AppButton label="Login" onPress={handleLogin} />
+        <AppButton label="Đăng nhập" onPress={handleLogin} />
         <View className="mt-6 flex items-center justify-center flex-row w-full gap-x-1">
           <Text>Bạn chưa có tài khoản?</Text>
-          <TouchableOpacity onPress={() => navigate('RegisterScreen')}>
+          <TouchableOpacity onPress={() => navigate(routesName.RegisterScreen)}>
             <Text className="text-primary text-center">Đăng ký ngay</Text>
           </TouchableOpacity>
         </View>
