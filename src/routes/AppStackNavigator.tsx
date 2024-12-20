@@ -1,20 +1,65 @@
 import {
+  CommonActions,
   createNavigationContainerRef,
   NavigationContainer,
+  StackActions,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '~/screens/auth/login-screen.tsx';
 import RegisterScreen from '~/screens/auth/register-screen.tsx';
 import HomeScreen from '~/screens/home/home-screen.tsx';
 import ConfirmOtpScreen from '~/screens/auth/confirm-otp.tsx';
+import ForgotPassword from '~/screens/auth/forgot-password.tsx';
+import {TabHome} from '~/routes/tab-home.tsx';
+import {routesName} from '~/constants';
+import PostDetailScreen from '~/screens/post/post=detail-screen.tsx';
+import {CommentDetailScreen} from '~/screens/post/comment-detail.tsx';
+import TourDetailScreen from '~/screens/tour/tour-detail-screen.tsx';
+import TourScreen from '~/screens/tour/tour-screen.tsx';
+import React from 'react';
+import CartScreen from '~/screens/cart/cart-screen.tsx';
 
 const Stack = createNativeStackNavigator();
 
 export type AllNavigatorParams = {
-  LoginScreen: undefined;
+  LoginScreen: {
+    screen?: string;
+    id?: string;
+  };
   RegisterScreen: undefined;
   HomeScreen: undefined;
-  ConfirmOtpScreen: undefined;
+  ConfirmOtpScreen: {
+    email?: string;
+    type?: string;
+  };
+  ForgotPassword: undefined;
+  TabHome: undefined;
+  PostDetailScreen: {
+    id: string;
+  };
+  TourDetailScreen: {
+    id: string;
+  };
+};
+export type CommonNavigatorParams = {
+  LoginScreen: {
+    screen?: string;
+    id?: string;
+  };
+  RegisterScreen: undefined;
+  HomeScreen: undefined;
+  ConfirmOtpScreen: {
+    email?: string;
+    type?: string;
+  };
+  ForgotPassword: undefined;
+  TabHome: undefined;
+  PostDetailScreen: {
+    id: string;
+  };
+  TourDetailScreen: {
+    id: string;
+  };
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
@@ -22,15 +67,40 @@ export const AppStackNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
-        initialRouteName="LoginScreen"
+        initialRouteName={routesName.TabHome}
         screenOptions={{
           headerShown: false,
           animation: 'ios_from_right',
         }}>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeScreen} />
-        <Stack.Screen name="ConfirmOtpScreen" component={ConfirmOtpScreen} />
+        <Stack.Screen name={routesName.TabHome} component={TabHome} />
+        <Stack.Screen name="TourScreen" component={TourScreen} />
+        <Stack.Screen name={routesName.LoginScreen} component={LoginScreen} />
+        <Stack.Screen
+          name={routesName.RegisterScreen}
+          component={RegisterScreen}
+        />
+        <Stack.Screen name={routesName.HomeScreen} component={HomeScreen} />
+        <Stack.Screen
+          name={routesName.ConfirmOtpScreen}
+          component={ConfirmOtpScreen}
+        />
+        <Stack.Screen
+          name={routesName.ForgotPassword}
+          component={ForgotPassword}
+        />
+        <Stack.Screen
+          name={routesName.PostDetailScreen}
+          component={PostDetailScreen}
+        />
+        <Stack.Screen
+          name={routesName.CommentDetailScreen}
+          component={CommentDetailScreen}
+        />
+        <Stack.Screen
+          name={routesName.TourDetailScreen}
+          component={TourDetailScreen}
+        />
+        <Stack.Screen name={routesName.CartScreen} component={CartScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -40,13 +110,37 @@ export function timeout(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
 }
 
+function reset(): Promise<void> {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: routesName.TabHome}],
+      }),
+    );
+    return Promise.race([
+      timeout(1e3),
+      new Promise<void>(resolve => {
+        const handler = () => {
+          resolve();
+          navigationRef.removeListener('state', handler);
+        };
+        navigationRef.addListener('state', handler);
+      }),
+    ]);
+  } else {
+    return Promise.resolve();
+  }
+}
+
 export function navigate<K extends keyof AllNavigatorParams>(
-  name: K,
+  name: any,
   params?: AllNavigatorParams[K],
+  isReplace = false,
 ) {
   if (navigationRef.isReady()) {
     return Promise.race([
-      new Promise<void>(resolve => {
+      new Promise<void>(async resolve => {
         const handler = () => {
           resolve();
           navigationRef.removeListener('state', handler);
@@ -54,10 +148,25 @@ export function navigate<K extends keyof AllNavigatorParams>(
         navigationRef.addListener('state', handler);
 
         // @ts-ignore I dont know what would make typescript happy but I have a life -prf
-        navigationRef.navigate(name, params);
+        if (isReplace) {
+          await reset();
+          navigationRef.navigate(name, params);
+        } else {
+          navigationRef.navigate(name, params);
+        }
       }),
       timeout(1e3),
     ]);
   }
   return Promise.resolve();
+}
+export const goBack = () => {
+  navigationRef.goBack();
+};
+export function getCurrentRouteName() {
+  if (navigationRef.isReady()) {
+    return navigationRef.getCurrentRoute()?.name;
+  } else {
+    return '';
+  }
 }

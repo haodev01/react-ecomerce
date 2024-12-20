@@ -1,32 +1,30 @@
 import {validateEmail} from '~/helpers';
 import {useState} from 'react';
+import {useFetch} from '~/hooks/use-fetch.tsx';
+import {listApi, routesName} from '~/constants';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {useToast} from '~/hooks/use-toast.ts';
 
 export const useRegister = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('vegilam637@mowline.com');
+  const [password, setPassword] = useState('Abc@2023');
+  const [username, setUserName] = useState('haonc');
   const [messageError, setMessageError] = useState({
     email: '',
     password: '',
-    firstName,
-    lastName,
+    username: '',
   });
+
+  const {postManual} = useFetch();
+  const {showToast} = useToast();
+
   const onValidate = () => {
     const newMessageError = {...messageError};
-
-    if (!firstName) {
-      newMessageError.firstName = 'First Name không được để trống';
+    if (!username) {
+      newMessageError.username = 'Tên đăng nhập không được để trống';
     } else {
-      newMessageError.firstName = '';
+      newMessageError.username = '';
     }
-    if (!lastName) {
-      newMessageError.lastName = 'Last Name không được để trống';
-    } else {
-      newMessageError.lastName = '';
-    }
-
     if (!email) {
       newMessageError.email = 'Email không được để trống';
     } else if (!validateEmail(email)) {
@@ -41,8 +39,7 @@ export const useRegister = () => {
     }
     if (
       newMessageError.email ||
-      newMessageError.firstName ||
-      newMessageError.lastName ||
+      newMessageError.username ||
       newMessageError.password
     ) {
       setMessageError({
@@ -54,29 +51,44 @@ export const useRegister = () => {
     setMessageError({
       email: '',
       password: '',
-      firstName: '',
-      lastName: '',
+      username: '',
     });
     return false;
   };
 
   const handleRegister = () => {
-    navigate('HomeScreen');
     const isValidated = onValidate();
     if (isValidated) {
       return;
     }
-    console.log({
+    postManual(listApi.REGISTER, {
       email,
       password,
-    });
+      confirmPassword: password,
+      username,
+    })
+      .then(async () => {
+        await navigate(routesName.ConfirmOtpScreen, {
+          email,
+          type: 'register',
+        });
+      })
+      .catch(error => {
+        showToast(
+          error?.response?.data?.info?.message ?? 'Co loi xay ra',
+          'error',
+        );
+        console.log(error);
+      });
   };
 
   return {
-    setFirstName,
-    setLastName,
+    email,
+    password,
+    username,
     setEmail,
     setPassword,
+    setUserName,
     messageError,
     handleRegister,
   };

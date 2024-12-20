@@ -1,7 +1,8 @@
 import axios from 'axios';
+import {API_URL} from '~/configs/api.ts';
 
 const http = axios.create({
-  baseURL: '',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -24,7 +25,7 @@ http.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    return response;
+    return response.data;
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
