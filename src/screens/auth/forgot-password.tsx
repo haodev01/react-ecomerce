@@ -56,7 +56,7 @@ const ConfirmOtpScreen = () => {
     await handleConfirmForgotPassword();
   };
   return (
-    <LayoutAuth onBack={() => navigate('HomeScreen')}>
+    <LayoutAuth onBack={() => navigate(routesName.TabHome)}>
       <View className=" flex-1 min-h-screen flex mt-4 px-4 ">
         <Text className="text-2xl font-bold">Quên mật khẩu</Text>
         <Text className="text-md mb-6">

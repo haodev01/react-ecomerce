@@ -12,6 +12,9 @@ import {TabHome} from '~/routes/tab-home.tsx';
 import {routesName} from '~/constants';
 import PostDetailScreen from '~/screens/post/post=detail-screen.tsx';
 import {CommentDetailScreen} from '~/screens/post/comment-detail.tsx';
+import TourDetailScreen from '~/screens/tour/tour-detail-screen.tsx';
+import TourScreen from '~/screens/tour/tour-screen.tsx';
+import React from 'react';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +31,9 @@ export type AllNavigatorParams = {
   PostDetailScreen: {
     id: string;
   };
+  TourDetailScreen: {
+    id: string;
+  };
 };
 export type CommonNavigatorParams = {
   LoginScreen: undefined;
@@ -40,6 +46,9 @@ export type CommonNavigatorParams = {
   ForgotPassword: undefined;
   TabHome: undefined;
   PostDetailScreen: {
+    id: string;
+  };
+  TourDetailScreen: {
     id: string;
   };
 };
@@ -55,6 +64,7 @@ export const AppStackNavigator = () => {
           animation: 'ios_from_right',
         }}>
         <Stack.Screen name={routesName.TabHome} component={TabHome} />
+        <Stack.Screen name="TourScreen" component={TourScreen} />
         <Stack.Screen name={routesName.LoginScreen} component={LoginScreen} />
         <Stack.Screen
           name={routesName.RegisterScreen}
@@ -76,6 +86,10 @@ export const AppStackNavigator = () => {
         <Stack.Screen
           name={routesName.CommentDetailScreen}
           component={CommentDetailScreen}
+        />
+        <Stack.Screen
+          name={routesName.TourDetailScreen}
+          component={TourDetailScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

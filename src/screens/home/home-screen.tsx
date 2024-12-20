@@ -1,8 +1,11 @@
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {LayoutHome} from '~/components/layouts/layout-home.tsx';
 import {FamousItem} from '~/components/common/famous/famous-item.tsx';
 import {PostItem} from '~/components/common/post/post-item.tsx';
-import {techBlogs} from '~/constants/data.ts';
+import {techBlogs, tourList} from '~/constants/data.ts';
+import {TourItem} from '~/components/common/tour/tour-item.tsx';
+import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {routesName} from '~/constants';
 const locations = [
   {
     id: 1,
@@ -40,6 +43,21 @@ const HomeScreen = () => {
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {locations.map((item, index) => {
               return <FamousItem item={item} key={index} />;
+            })}
+          </ScrollView>
+        </View>
+        <View className="mt-8">
+          <View className="flex flex-row justify-between">
+            <Text className="mb-2 text-lg font-bold text-gray-500 ">
+              Tour nổi bật
+            </Text>
+            <TouchableOpacity onPress={() => navigate(routesName.TourScreen)}>
+              <Text className="font-bold text-primary">Xem tất cả</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            {tourList.map((item, index) => {
+              return <TourItem item={item} key={index} />;
             })}
           </ScrollView>
         </View>

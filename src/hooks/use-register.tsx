@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {useFetch} from '~/hooks/use-fetch.tsx';
 import {listApi, routesName} from '~/constants';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {useToast} from '~/hooks/use-toast.ts';
 
 export const useRegister = () => {
   const [email, setEmail] = useState('vegilam637@mowline.com');
@@ -15,6 +16,7 @@ export const useRegister = () => {
   });
 
   const {postManual} = useFetch();
+  const {showToast} = useToast();
 
   const onValidate = () => {
     const newMessageError = {...messageError};
@@ -72,6 +74,10 @@ export const useRegister = () => {
         });
       })
       .catch(error => {
+        showToast(
+          error?.response?.data?.info?.message ?? 'Co loi xay ra',
+          'error',
+        );
         console.log(error);
       });
   };

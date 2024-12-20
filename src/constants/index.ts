@@ -15,4 +15,6 @@ export const routesName = {
   TabHome: 'TabHome',
   PostDetailScreen: 'PostDetailScreen',
   CommentDetailScreen: 'CommentDetailScreen',
+  TourDetailScreen: 'TourDetailScreen',
+  TourScreen: 'TourScreen',
 };

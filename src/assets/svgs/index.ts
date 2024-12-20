@@ -5,6 +5,11 @@ import IconProfile from './icon-profile.svg';
 import IconProfileActive from './icon-profile-active.svg';
 import ArrowRightWhite from './arrow-right-white.svg';
 import AvatarDefault from './avatar-default.svg';
+import IconPhone from './icon-phone.svg';
+import IconContact from './icon-contact.svg';
+import Close from './close.svg';
+import IconArrowDown from './icon-arrow-down.svg';
+import IconCheckCircle from './icon-check-circle.svg';
 export const SvgStatic = {
   IconBack,
   IconHome,
@@ -13,6 +18,11 @@ export const SvgStatic = {
   IconProfileActive,
   ArrowRightWhite,
   AvatarDefault,
+  IconPhone,
+  IconContact,
+  Close,
+  IconArrowDown,
+  IconCheckCircle,
 };
 
 export const svgsNames = {
@@ -23,4 +33,9 @@ export const svgsNames = {
   IconProfileActive: 'IconProfileActive',
   ArrowRightWhite: 'ArrowRightWhite',
   AvatarDefault: 'AvatarDefault',
+  IconPhone: 'IconPhone',
+  IconContact: 'IconContact',
+  Close: 'Close',
+  IconArrowDown: 'IconArrowDown',
+  IconCheckCircle: 'IconCheckCircle',
 };

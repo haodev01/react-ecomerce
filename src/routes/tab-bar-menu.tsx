@@ -65,16 +65,10 @@ export const TabBarMenu = ({state, navigation}: any) => {
               onLongPress={() => onLongPressTab(1)}
             />
             <TabBarMenuItem
-              name="Home"
+              name="Profile"
               isFocus={state.index === 2}
               onPress={() => onPressTab(2)}
               onLongPress={() => onLongPressTab(2)}
-            />
-            <TabBarMenuItem
-              name="Profile"
-              isFocus={state.index === 3}
-              onPress={() => onPressTab(3)}
-              onLongPress={() => onLongPressTab(3)}
             />
           </View>
         </View>

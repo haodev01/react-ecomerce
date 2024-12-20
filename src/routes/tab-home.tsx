@@ -15,7 +15,6 @@ export const TabHome = () => {
         headerShown: false,
       }}>
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
-      <Tab.Screen name="TourScreen" component={TourScreen} />
       <Tab.Screen name="PostScreen" component={PostScreen} />
       <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
     </Tab.Navigator>
