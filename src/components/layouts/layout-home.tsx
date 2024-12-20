@@ -14,15 +14,14 @@ import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
 import {SvgItem} from '~/components/items';
 import {AvatarItem} from '~/components/items/avatar-item.tsx';
+import {useAuth} from '~/hooks/use-auth.tsx';
 
 export const LayoutHome = ({children}: any) => {
   const {styleInsets, bottom} = useInsets();
 
-  const isRouteHome = true;
+  const {isLogged} = useAuth();
 
-  const gotoNotification = async () => {
-    await navigate(routesName.HomeScreen);
-  };
+  const isRouteHome = true;
 
   const gotoProfile = async () => {
     await navigate(routesName.HomeScreen);
@@ -34,7 +33,7 @@ export const LayoutHome = ({children}: any) => {
     },
   });
 
-  const labelUser = 'haonc';
+  const labelUser = isLogged ? 'haonc' : 'Guest';
 
   return (
     <View className="w-full flex-1 relative" style={[styleInsets.pt]}>
@@ -53,6 +52,11 @@ export const LayoutHome = ({children}: any) => {
                 {labelUser}
               </Text>
             </View>
+            {isLogged && (
+              <View>
+                <Text className="font-bold text-base text-white">100$</Text>
+              </View>
+            )}
           </View>
         ) : (
           <TouchableOpacity

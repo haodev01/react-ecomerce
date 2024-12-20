@@ -2,14 +2,24 @@ import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {AppButton} from '~/components/common';
 import {useLogin} from '~/hooks/use-login.tsx';
 import {LayoutAuth} from '~/components/layouts/layout-auth.tsx';
-import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {
+  CommonNavigatorParams,
+  goBack,
+  navigate,
+} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+type Props = NativeStackScreenProps<CommonNavigatorParams, 'LoginScreen'>;
+const LoginScreen = (props: Props) => {
+  const {route} = props;
 
-const LoginScreen = () => {
+  const screen = route.params?.screen ?? '';
+  const id = route.params?.id ?? '';
+
   const {email, password, setEmail, setPassword, messageError, handleLogin} =
-    useLogin();
+    useLogin(screen, id);
   return (
-    <LayoutAuth onBack={() => navigate(routesName.TabHome)}>
+    <LayoutAuth onBack={goBack}>
       <View className=" flex-1 min-h-screen px-4 mt-4 ">
         <Text className="text-2xl font-bold">Đăng nhập tài khoản</Text>
         <Text className="text-md mb-6">

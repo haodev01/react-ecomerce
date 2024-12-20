@@ -1,23 +1,18 @@
-import {
-  Image,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
-import {goBack} from '~/routes/AppStackNavigator.tsx';
+import {
+  getCurrentRouteName,
+  goBack,
+  navigate,
+} from '~/routes/AppStackNavigator.tsx';
 import {formatVND} from '~/helpers';
 import {AppButton} from '~/components/common';
 import {SvgItem} from '~/components/items';
 import {svgsNames} from '~/assets/svgs';
 import {useState} from 'react';
-import {useToast} from '~/hooks/use-toast.ts';
 import {DialogContact} from '~/components/common/modal/dialog-contact.tsx';
-import {DropdownAddress} from '~/components/common/dropdown/dropdown-address.tsx';
-import {TOUR_TYPES} from '~/constants/data.ts';
-import {ModalSelect} from '~/components/common/dropdown/modal-select.tsx';
+import {routesName} from '~/constants';
+import {useAuth} from '~/hooks/use-auth.tsx';
 
 const post = {
   title:
@@ -48,6 +43,16 @@ In conclusion, the future of AI is both exciting and complex. As we navigate thi
 };
 const TourDetailScreen = () => {
   const [visible, setVisible] = useState(false);
+  const {isLogged} = useAuth();
+
+  const handlePress = async () => {
+    if (!isLogged) {
+      return navigate(routesName.LoginScreen, {
+        screen: getCurrentRouteName(),
+        id: '1',
+      });
+    }
+  };
 
   return (
     <LayoutCommon label={post?.title} onBack={goBack}>
@@ -89,7 +94,7 @@ const TourDetailScreen = () => {
             <AppButton
               classCustom="h-10 flex-1"
               label="Đặt ngay"
-              onPress={() => {}}
+              onPress={handlePress}
             />
           </View>
         </View>

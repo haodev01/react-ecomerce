@@ -1,6 +1,8 @@
 import {
+  CommonActions,
   createNavigationContainerRef,
   NavigationContainer,
+  StackActions,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '~/screens/auth/login-screen.tsx';
@@ -15,11 +17,15 @@ import {CommentDetailScreen} from '~/screens/post/comment-detail.tsx';
 import TourDetailScreen from '~/screens/tour/tour-detail-screen.tsx';
 import TourScreen from '~/screens/tour/tour-screen.tsx';
 import React from 'react';
+import CartScreen from '~/screens/cart/cart-screen.tsx';
 
 const Stack = createNativeStackNavigator();
 
 export type AllNavigatorParams = {
-  LoginScreen: undefined;
+  LoginScreen: {
+    screen?: string;
+    id?: string;
+  };
   RegisterScreen: undefined;
   HomeScreen: undefined;
   ConfirmOtpScreen: {
@@ -36,7 +42,10 @@ export type AllNavigatorParams = {
   };
 };
 export type CommonNavigatorParams = {
-  LoginScreen: undefined;
+  LoginScreen: {
+    screen?: string;
+    id?: string;
+  };
   RegisterScreen: undefined;
   HomeScreen: undefined;
   ConfirmOtpScreen: {
@@ -91,6 +100,7 @@ export const AppStackNavigator = () => {
           name={routesName.TourDetailScreen}
           component={TourDetailScreen}
         />
+        <Stack.Screen name={routesName.CartScreen} component={CartScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -100,13 +110,37 @@ export function timeout(ms: number): Promise<void> {
   return new Promise(r => setTimeout(r, ms));
 }
 
+function reset(): Promise<void> {
+  if (navigationRef.isReady()) {
+    navigationRef.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: routesName.TabHome}],
+      }),
+    );
+    return Promise.race([
+      timeout(1e3),
+      new Promise<void>(resolve => {
+        const handler = () => {
+          resolve();
+          navigationRef.removeListener('state', handler);
+        };
+        navigationRef.addListener('state', handler);
+      }),
+    ]);
+  } else {
+    return Promise.resolve();
+  }
+}
+
 export function navigate<K extends keyof AllNavigatorParams>(
   name: any,
   params?: AllNavigatorParams[K],
+  isReplace = false,
 ) {
   if (navigationRef.isReady()) {
     return Promise.race([
-      new Promise<void>(resolve => {
+      new Promise<void>(async resolve => {
         const handler = () => {
           resolve();
           navigationRef.removeListener('state', handler);
@@ -114,7 +148,12 @@ export function navigate<K extends keyof AllNavigatorParams>(
         navigationRef.addListener('state', handler);
 
         // @ts-ignore I dont know what would make typescript happy but I have a life -prf
-        navigationRef.navigate(name, params);
+        if (isReplace) {
+          await reset();
+          navigationRef.navigate(name, params);
+        } else {
+          navigationRef.navigate(name, params);
+        }
       }),
       timeout(1e3),
     ]);

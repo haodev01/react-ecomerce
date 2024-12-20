@@ -1,3 +1,5 @@
+import CartScreen from '~/screens/cart/cart-screen.tsx';
+
 export const listApi = {
   LOGIN: 'auth/login',
   REGISTER: 'auth/register',
@@ -17,4 +19,5 @@ export const routesName = {
   CommentDetailScreen: 'CommentDetailScreen',
   TourDetailScreen: 'TourDetailScreen',
   TourScreen: 'TourScreen',
+  CartScreen: 'CartScreen',
 };

@@ -2,7 +2,6 @@ import {View, Text, Image, ScrollView, TouchableOpacity} from 'react-native';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
 import {goBack, navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
-import {CommentDetailScreen} from '~/screens/post/comment-detail.tsx';
 
 const post = {
   title: 'Green Tech: Innovations for a Sustainable Future',

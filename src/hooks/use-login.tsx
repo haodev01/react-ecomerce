@@ -7,7 +7,7 @@ import {changeAccessToken, changeUser} from '~/store/reducer/auth-reducer.ts';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {useToast} from '~/hooks/use-toast.ts';
 
-export const useLogin = () => {
+export const useLogin = (screen = '', id = '') => {
   const [email, setEmail] = useState('trinhdinhdai22@gmail.com');
   const [password, setPassword] = useState('Abc@2023');
   const [messageError, setMessageError] = useState({
@@ -66,7 +66,16 @@ export const useLogin = () => {
         const data = response.returnValue;
         dispatch(changeUser(data));
         dispatch(changeAccessToken(data.accessToken));
-        navigate(routesName.TabHome);
+        if (screen) {
+          return navigate(
+            screen === routesName.HomeScreen ? routesName.TabHome : screen,
+            {
+              id,
+            },
+            true,
+          );
+        }
+        navigate(routesName.TabHome, {}, true);
       })
       .catch(error => {
         showToast(error?.response?.data?.info?.message, 'error');
