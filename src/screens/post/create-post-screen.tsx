@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
+import {ScrollView, Text, TextInput, View} from 'react-native';
 import {AppButton} from '~/components/common';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
 import {Editor} from '~/components/common/editor';
@@ -37,8 +37,7 @@ const CreatePostScreen = () => {
   };
   return (
     <LayoutCommon label="Tạo bài viết" onBack={goBack}>
-      <View className="px-4 mt-6">
-        <ImagePickerComponent setBase64Image={setBase64Image} />
+      <ScrollView className="px-4 mt-6">
         <View className="my-4 w-full">
           <Text className="text-base mb-1">Tiêu đề bài viết</Text>
           <TextInput
@@ -49,10 +48,11 @@ const CreatePostScreen = () => {
           />
         </View>
         <Editor onChange={(value: string) => setContent(value)} />
-        <View className="mt-5">
+        <ImagePickerComponent setBase64Image={setBase64Image} />
+        <View className="mt-5 mb-6">
           <AppButton label="Tạo bài viết" onPress={handleCreatePost} />
         </View>
-      </View>
+      </ScrollView>
     </LayoutCommon>
   );
 };

@@ -23,6 +23,7 @@ const ImagePickerComponent = (props: Props) => {
       {
         mediaType: 'photo', // allow only photos
         quality: 1, // highest quality
+        includeBase64: true,
       },
       (response: any) => {
         if (response.didCancel) {
@@ -38,7 +39,7 @@ const ImagePickerComponent = (props: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} className="mt-6">
       {/* Border box with dashed border */}
       <TouchableOpacity
         style={[styles.imageContainer, imageUri && {borderWidth: 0}]} // remove border when image is selected
