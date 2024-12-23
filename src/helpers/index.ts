@@ -9,11 +9,17 @@ export const formatVND = (amount: number) => {
   }).format(amount);
 };
 
-export const formatTimeAgo = (timestamp: string) => {
-  const now: any = new Date();
-  const inputTime: any = new Date(timestamp);
+export const formatTimeAgo = (timestamp: string): string => {
+  const inputTime = new Date(timestamp);
+  if (isNaN(inputTime.getTime())) {
+    return 'Thời gian không hợp lệ';
+  }
 
-  const diffInSeconds = Math.floor((now - inputTime) / 1000);
+  // Trừ đi 7 giờ (7 * 60 * 60 * 1000 ms)
+  const adjustedTime = inputTime.getTime() + 7 * 60 * 60 * 1000;
+
+  const now = Date.now();
+  const diffInSeconds = Math.floor((now - adjustedTime) / 1000);
   const diffInMinutes = Math.floor(diffInSeconds / 60);
   const diffInHours = Math.floor(diffInMinutes / 60);
   const diffInDays = Math.floor(diffInHours / 24);
@@ -33,4 +39,24 @@ export const formatTimeAgo = (timestamp: string) => {
   } else {
     return `${diffInYears} năm trước`;
   }
+};
+const base64ToBlob = (base64, mimeType = '') => {
+  // Loại bỏ tiền tố "data:[mime];base64," nếu có
+  const base64WithoutPrefix = base64.replace(/^data:[^;]+;base64,/, '');
+  const byteCharacters = atob(base64WithoutPrefix);
+  const byteNumbers = new Array(byteCharacters.length)
+    .fill(0)
+    .map((_, i) => byteCharacters.charCodeAt(i));
+  const byteArray = new Uint8Array(byteNumbers);
+
+  return new Blob([byteArray], {type: mimeType});
+};
+
+export const base64ToFile = (
+  base64: any,
+  fileName: any,
+  mimeType = 'image/png',
+) => {
+  const blob = base64ToBlob(base64, mimeType);
+  return new File([blob], fileName, {type: mimeType});
 };

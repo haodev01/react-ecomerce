@@ -17,6 +17,7 @@ import TourDetailScreen from '~/screens/tour/tour-detail-screen.tsx';
 import TourScreen from '~/screens/tour/tour-screen.tsx';
 import React from 'react';
 import CartScreen from '~/screens/cart/cart-screen.tsx';
+import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -109,6 +110,10 @@ export const AppStackNavigator = () => {
           component={TourDetailScreen}
         />
         <Stack.Screen name={routesName.CartScreen} component={CartScreen} />
+        <Stack.Screen
+          name={routesName.CreatePostScreen}
+          component={CreatePostScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

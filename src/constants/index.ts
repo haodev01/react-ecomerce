@@ -1,3 +1,5 @@
+import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
+
 export const listApi = {
   LOGIN: 'auth/login',
   REGISTER: 'auth/register',
@@ -21,4 +23,5 @@ export const routesName = {
   TourDetailScreen: 'TourDetailScreen',
   TourScreen: 'TourScreen',
   CartScreen: 'CartScreen',
+  CreatePostScreen: 'CreatePostScreen',
 };
