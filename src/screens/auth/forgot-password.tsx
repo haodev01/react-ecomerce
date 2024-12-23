@@ -6,7 +6,6 @@ import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {LayoutAuth} from '~/components/layouts/layout-auth.tsx';
 import {useFetch} from '~/hooks/use-fetch.tsx';
 import {listApi, routesName} from '~/constants';
-import Toast from 'react-native-toast-message';
 import {useToast} from '~/hooks/use-toast.ts';
 
 export enum STEP_FORGOT_PASSWORD {

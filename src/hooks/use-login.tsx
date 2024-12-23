@@ -6,6 +6,7 @@ import {useAppDispatch} from '~/store/hooks.ts';
 import {changeAccessToken, changeUser} from '~/store/reducer/auth-reducer.ts';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {useToast} from '~/hooks/use-toast.ts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useLogin = (screen = '', id = '') => {
   const [email, setEmail] = useState('trinhdinhdai22@gmail.com');
@@ -61,7 +62,6 @@ export const useLogin = (screen = '', id = '') => {
       password,
     })
       .then((response: any) => {
-        console.log(response);
         showToast('Đăng nhập thành công', 'success');
         const data = response.returnValue;
         dispatch(changeUser(data));

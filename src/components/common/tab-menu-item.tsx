@@ -5,10 +5,19 @@ import {BorderDashItem} from '~/components/common/border-dash-item.tsx';
 import {SvgItem} from '~/components/items';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
+import {useAppDispatch} from '~/store/hooks.ts';
+import {
+  changeAccessToken,
+  changeUser,
+  User,
+} from '~/store/reducer/auth-reducer.ts';
 
 export const TabMenuItem = ({item, hasBorderBottom = false}: any) => {
+  const dispatch = useAppDispatch();
   const handleOnPress = async () => {
     if (item?.action === 'logout') {
+      dispatch(changeAccessToken(''));
+      dispatch(changeUser({} as User));
       await navigate(routesName.HomeScreen);
     } else {
       await navigate(item.route);

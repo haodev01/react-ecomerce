@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {API_URL} from '~/configs/api.ts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const http = axios.create({
   baseURL: API_URL,
@@ -10,8 +11,9 @@ const http = axios.create({
 });
 
 http.interceptors.request.use(
-  function (config) {
+  async function (config: any) {
     // Do something before request is sent
+    config.headers.Authorization = `Bearer ${config.accessToken}`;
     return config;
   },
   function (error) {

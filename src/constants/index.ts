@@ -1,4 +1,4 @@
-import CartScreen from '~/screens/cart/cart-screen.tsx';
+import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
 
 export const listApi = {
   LOGIN: 'auth/login',
@@ -6,6 +6,9 @@ export const listApi = {
   CONFIRM_OTP: 'auth/active-user',
   SEND_OTP_FORGOT_PASSWORD: 'auth/send-otp-forgot-password',
   FORGOT_PASSWORD: 'auth/forgot-password',
+  LIST_POST: 'posts/user-tourguide',
+  POST_DETAIL: 'posts/user-tourguide',
+  GET_COMMENT: 'comments',
 };
 
 export const routesName = {
@@ -20,4 +23,5 @@ export const routesName = {
   TourDetailScreen: 'TourDetailScreen',
   TourScreen: 'TourScreen',
   CartScreen: 'CartScreen',
+  CreatePostScreen: 'CreatePostScreen',
 };

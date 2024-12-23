@@ -1,26 +1,41 @@
-import {Image, Text, View} from 'react-native';
-import {ImagesStatic} from '~/assets/images';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {SvgItem} from '~/components/items';
 import {svgsNames} from '~/assets/svgs';
+import {formatTimeAgo} from '~/helpers';
+import {useAuth} from '~/hooks/use-auth.tsx';
 
-export const CommentItem = () => {
+interface Props {
+  comment: any;
+  onDelete?: () => void;
+  onEdit?: () => void;
+}
+export const CommentItem = (props: Props) => {
+  const {comment, onDelete, onEdit} = props;
+  const {user} = useAuth();
   return (
     <View className="bg-gray-300  rounded-lg w-full p-2 mb-2">
-      <View className=" ">
+      <View className="flex  flex-row justify-between ">
         <View className="flex flex-row items-center">
           <SvgItem name={svgsNames.AvatarDefault} width={24} height={24} />
           <Text className="text-gray-500 text-[15px] font-medium inline bg-gray-300 ml-2 mr-4 ">
-            Hao nguyen
+            {comment?.user?.username}
           </Text>
-          <Text className=" text-xs inline text-gray-500 ">6 phút trước</Text>
+          <Text className=" text-xs inline text-gray-500 ">
+            {formatTimeAgo(comment?.createdAt)}
+          </Text>
         </View>
+        {comment?.user?.id === user?.id && (
+          <View className="ml-10 flex flex-row">
+            <TouchableOpacity onPress={onEdit} className="mr-2">
+              <Text className="text-primary text-xs">Sửa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onDelete}>
+              <Text className="text-red-500 text-xs">Xóa</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-      <Text className="mt-2 text-md">
-        Nếu bạn muốn Text chỉ chiếm kích thước vừa đủ cho nội dung của nó trong
-        React Native, bạn không cần sử dụng flex: 1. Thay vào đó, Text sẽ tự
-        động chiếm kích thước theo nội dung, và bạn có thể căn chỉnh nó trong
-        View cha.
-      </Text>
+      <Text className="mt-2 text-md">{comment?.content}</Text>
     </View>
   );
 };

@@ -2,7 +2,6 @@ import {
   CommonActions,
   createNavigationContainerRef,
   NavigationContainer,
-  StackActions,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '~/screens/auth/login-screen.tsx';
@@ -18,6 +17,7 @@ import TourDetailScreen from '~/screens/tour/tour-detail-screen.tsx';
 import TourScreen from '~/screens/tour/tour-screen.tsx';
 import React from 'react';
 import CartScreen from '~/screens/cart/cart-screen.tsx';
+import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +40,10 @@ export type AllNavigatorParams = {
   TourDetailScreen: {
     id: string;
   };
+  CommentDetailScreen: {
+    id: string;
+    title: string;
+  };
 };
 export type CommonNavigatorParams = {
   LoginScreen: {
@@ -60,10 +64,15 @@ export type CommonNavigatorParams = {
   TourDetailScreen: {
     id: string;
   };
+  CommentDetailScreen: {
+    id: string;
+    title: string;
+  };
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
 export const AppStackNavigator = () => {
+  // @ts-ignore
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
@@ -101,6 +110,10 @@ export const AppStackNavigator = () => {
           component={TourDetailScreen}
         />
         <Stack.Screen name={routesName.CartScreen} component={CartScreen} />
+        <Stack.Screen
+          name={routesName.CreatePostScreen}
+          component={CreatePostScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

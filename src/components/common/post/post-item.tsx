@@ -1,6 +1,8 @@
-import {Image, Text, TouchableOpacity} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
+import React from 'react';
+import {RenderHtml} from '~/components/common/render-html.tsx';
 
 interface Props {
   item: any;
@@ -24,9 +26,9 @@ export const PostItem = (props: Props) => {
       <Text className="text-base font-bold my-1" numberOfLines={1}>
         {item?.title}
       </Text>
-      <Text className="text-md" numberOfLines={3}>
-        {item?.description}
-      </Text>
+      <View className="text-md">
+        <RenderHtml source={item?.currentContent ?? ''} />
+      </View>
     </TouchableOpacity>
   );
 };
