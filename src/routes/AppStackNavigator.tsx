@@ -2,7 +2,6 @@ import {
   CommonActions,
   createNavigationContainerRef,
   NavigationContainer,
-  StackActions,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import LoginScreen from '~/screens/auth/login-screen.tsx';
@@ -40,6 +39,10 @@ export type AllNavigatorParams = {
   TourDetailScreen: {
     id: string;
   };
+  CommentDetailScreen: {
+    id: string;
+    title: string;
+  };
 };
 export type CommonNavigatorParams = {
   LoginScreen: {
@@ -60,10 +63,15 @@ export type CommonNavigatorParams = {
   TourDetailScreen: {
     id: string;
   };
+  CommentDetailScreen: {
+    id: string;
+    title: string;
+  };
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
 export const AppStackNavigator = () => {
+  // @ts-ignore
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator

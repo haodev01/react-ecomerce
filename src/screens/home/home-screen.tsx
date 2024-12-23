@@ -2,10 +2,12 @@ import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import {LayoutHome} from '~/components/layouts/layout-home.tsx';
 import {FamousItem} from '~/components/common/famous/famous-item.tsx';
 import {PostItem} from '~/components/common/post/post-item.tsx';
-import {techBlogs, tourList} from '~/constants/data.ts';
+import {tourList} from '~/constants/data.ts';
 import {TourItem} from '~/components/common/tour/tour-item.tsx';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
+import {usePost} from '~/hooks/use-post.ts';
+
 const locations = [
   {
     id: 1,
@@ -33,6 +35,7 @@ const locations = [
 ];
 
 const HomeScreen = () => {
+  const {listPost} = usePost();
   return (
     <LayoutHome>
       <View className="pt-6 px-4">
@@ -66,7 +69,7 @@ const HomeScreen = () => {
             Bài viết nổi bật
           </Text>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {techBlogs.map((item, index) => {
+            {listPost?.map((item, index) => {
               return <PostItem item={item} key={index} />;
             })}
           </ScrollView>

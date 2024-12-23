@@ -1,6 +1,7 @@
 import IconBack from './arrow-left.svg';
 import IconHome from './icon-home.svg';
 import IconHomeActive from './icon-home-active.svg';
+
 import IconProfile from './icon-profile.svg';
 import IconProfileActive from './icon-profile-active.svg';
 import ArrowRightWhite from './arrow-right-white.svg';
