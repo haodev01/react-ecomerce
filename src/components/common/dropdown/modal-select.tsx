@@ -45,8 +45,6 @@ export const ModalSelect = (props: DropdownOptionFeatureProps) => {
     handleClose();
   };
 
-  console.log('heightScreen', heightScreen);
-
   return (
     <Modal
       isVisible={isVisible}

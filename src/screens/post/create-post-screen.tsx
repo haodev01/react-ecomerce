@@ -1,35 +1,45 @@
-import {Image, Text, TextInput, View} from 'react-native';
-import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
-import {useState} from 'react';
-import {launchImageLibrary} from 'react-native-image-picker';
+import React, {useState} from 'react';
+import {Text, TextInput, View} from 'react-native';
 import {AppButton} from '~/components/common';
-import {base64ToFile} from '~/helpers';
+import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
+import {Editor} from '~/components/common/editor';
+import ImagePickerComponent from '~/components/common/image-picker';
+import {listApi, routesName} from '~/constants';
+import {useFetch} from '~/hooks/use-fetch';
+import {useToast} from '~/hooks/use-toast';
+import {goBack, navigate} from '~/routes/AppStackNavigator';
 
 const CreatePostScreen = () => {
   const [title, setTitle] = useState<string>('');
-  const [previewImage, setPreviewImage] = useState<string>('');
   const [base64Image, setBase64Image] = useState<string>('');
 
-  const selectImageLibary = async () => {
-    const options = {
-      mediaType: 'photo',
-      includeBase64: true,
-    };
-    const result = await launchImageLibrary(options);
-    // @ts-ignore
-    if (result?.assets[0]?.base64) {
-      const file = base64ToFile(result?.assets[0]?.base64, 'image.png');
-      setBase64Image(result?.assets[0]?.base64);
+  const [content, setContent] = useState<string>('');
+
+  const {postManual} = useFetch();
+  const {showToast} = useToast();
+
+  const handleCreatePost = () => {
+    if (!title || !content || !base64Image) {
+      return showToast('Vui lòng nhập đày đủ thông tin', 'error');
     }
-    // @ts-ignore
-    if (result?.assets[0]?.uri) {
-      setPreviewImage(result?.assets[0]?.uri);
-    }
+    postManual(listApi.CREATE_POST, {
+      title,
+      content,
+      base64Image,
+    })
+      .then(async () => {
+        showToast('Tạo bài viết thành công', 'success');
+        await navigate(routesName.TabHome, {}, true);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
   return (
-    <LayoutCommon>
-      <View className="px-4">
-        <View className="mb-4 w-full">
+    <LayoutCommon label="Tạo bài viết" onBack={goBack}>
+      <View className="px-4 mt-6">
+        <ImagePickerComponent setBase64Image={setBase64Image} />
+        <View className="my-4 w-full">
           <Text className="text-base mb-1">Tiêu đề bài viết</Text>
           <TextInput
             value={title}
@@ -38,16 +48,10 @@ const CreatePostScreen = () => {
             placeholder="Tiêu đề  ..."
           />
         </View>
-        <AppButton label="Chọn ảnh" onPress={selectImageLibary} />
-        {!!previewImage && (
-          <Image
-            width={300}
-            height={300}
-            source={{
-              uri: previewImage,
-            }}
-          />
-        )}
+        <Editor onChange={(value: string) => setContent(value)} />
+        <View className="mt-5">
+          <AppButton label="Tạo bài viết" onPress={handleCreatePost} />
+        </View>
       </View>
     </LayoutCommon>
   );

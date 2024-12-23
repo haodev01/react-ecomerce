@@ -22,7 +22,6 @@ const TourScreen = () => {
               listItem={TOUR_TYPES}
               label="Chọn thành phố"
               handleSelect={(item: any) => {
-                console.log({item});
                 setCity(item);
               }}
               itemSelect={city}
@@ -32,7 +31,6 @@ const TourScreen = () => {
               listItem={TOUR_TYPES}
               label="Loại du lịch"
               handleSelect={(item: any) => {
-                console.log({item});
                 setType(item);
               }}
               itemSelect={type}

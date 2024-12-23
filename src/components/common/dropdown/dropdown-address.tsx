@@ -29,7 +29,6 @@ export const DropdownAddress = (props: Props) => {
   const backgroundDropdown = !isDisable ? 'bg-white' : 'bg-dede';
   const borderDropDown = hasBorder ? 'rounded-lg border border-gray-300' : '';
   const handleOpenModal = () => {
-    console.log('handle');
     setIsVisible(true);
   };
 

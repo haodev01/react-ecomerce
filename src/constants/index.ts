@@ -1,5 +1,3 @@
-import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
-
 export const listApi = {
   LOGIN: 'auth/login',
   REGISTER: 'auth/register',
@@ -9,6 +7,7 @@ export const listApi = {
   LIST_POST: 'posts/user-tourguide',
   POST_DETAIL: 'posts/user-tourguide',
   GET_COMMENT: 'comments',
+  CREATE_POST: 'CREATE_POST',
 };
 
 export const routesName = {
