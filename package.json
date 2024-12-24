@@ -18,6 +18,8 @@
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
     "babel-plugin-module-resolver": "^5.0.2",
+    "cloudinary": "^2.5.1",
+    "crypto-js": "^4.2.0",
     "nativewind": "2.0.11",
     "react": "18.3.1",
     "react-native": "0.76.5",

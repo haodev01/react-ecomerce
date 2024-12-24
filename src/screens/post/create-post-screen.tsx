@@ -8,6 +8,7 @@ import {listApi, routesName} from '~/constants';
 import {useFetch} from '~/hooks/use-fetch';
 import {useToast} from '~/hooks/use-toast';
 import {goBack, navigate} from '~/routes/AppStackNavigator';
+import {uploadBase64ToCloudinary} from '~/helpers';
 
 const CreatePostScreen = () => {
   const [title, setTitle] = useState<string>('');
@@ -18,16 +19,20 @@ const CreatePostScreen = () => {
   const {postManual} = useFetch();
   const {showToast} = useToast();
 
-  const handleCreatePost = () => {
-    if (!title || !content || !base64Image) {
+  const handleCreatePost = async () => {
+    const response = await uploadBase64ToCloudinary(base64Image);
+    const imageUrl = response?.url;
+    if (!title || !content || !imageUrl) {
       return showToast('Vui lòng nhập đày đủ thông tin', 'error');
     }
     postManual(listApi.CREATE_POST, {
       title,
       content,
-      base64Image,
+      image: imageUrl,
+      topic: 'SUGGEST',
     })
-      .then(async () => {
+      .then(async response => {
+        console.log(response);
         showToast('Tạo bài viết thành công', 'success');
         await navigate(routesName.TabHome, {}, true);
       })

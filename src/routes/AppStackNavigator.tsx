@@ -18,6 +18,7 @@ import TourScreen from '~/screens/tour/tour-screen.tsx';
 import React from 'react';
 import CartScreen from '~/screens/cart/cart-screen.tsx';
 import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
+import PostUserScreen from '~/screens/post/post-user-screen.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,7 @@ export type AllNavigatorParams = {
     id: string;
     title: string;
   };
+  PostUserScreen: undefined;
 };
 export type CommonNavigatorParams = {
   LoginScreen: {
@@ -68,6 +70,7 @@ export type CommonNavigatorParams = {
     id: string;
     title: string;
   };
+  PostUserScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
@@ -113,6 +116,10 @@ export const AppStackNavigator = () => {
         <Stack.Screen
           name={routesName.CreatePostScreen}
           component={CreatePostScreen}
+        />
+        <Stack.Screen
+          name={routesName.PostUserScreen}
+          component={PostUserScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
