@@ -235,3 +235,9 @@ export const TOUR_TYPES = [
     label: 'Du lịch mạo hiểm',
   },
 ];
+export const POST_TOPIC = [
+  {label: 'Ẩm thực', value: 'FOOD'},
+  {label: 'Chia sẻ', value: 'SHARE'},
+  {label: 'Trải nghiệm', value: 'REVIEW'},
+  {label: 'Hướng dẫn đi', value: 'SUGGEST'},
+];

@@ -22,6 +22,12 @@ const tabMenu = [
   },
   {
     id: 1,
+    label: 'Danh sách bài viết',
+    icon: svgsNames.IconProfile,
+    route: routesName.ListPostUserScreen,
+  },
+  {
+    id: 1,
     label: 'Giỏ hàng',
     icon: svgsNames.IconCart,
     route: routesName.CartScreen,

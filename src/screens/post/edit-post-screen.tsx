@@ -7,9 +7,17 @@ import ImagePickerComponent from '~/components/common/image-picker';
 import {listApi, routesName} from '~/constants';
 import {useFetch} from '~/hooks/use-fetch';
 import {useToast} from '~/hooks/use-toast';
-import {goBack, navigate} from '~/routes/AppStackNavigator';
+import {
+  CommonNavigatorParams,
+  goBack,
+  navigate,
+} from '~/routes/AppStackNavigator';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-const CreatePostScreen = () => {
+type Props = NativeStackScreenProps<CommonNavigatorParams, 'EditPostScreen'>;
+const EditPostScreen = (props: Props) => {
+  const {route} = props;
+  const id = route.params?.id;
   const [title, setTitle] = useState<string>('');
   const [base64Image, setBase64Image] = useState<string>('');
 
@@ -25,7 +33,7 @@ const CreatePostScreen = () => {
     postManual(listApi.CREATE_POST, {
       title,
       content,
-      image: base64Image,
+      base64Image,
       topic: 'SUGGEST',
     })
       .then(async () => {
@@ -58,4 +66,4 @@ const CreatePostScreen = () => {
   );
 };
 
-export default CreatePostScreen;
+export default EditPostScreen;

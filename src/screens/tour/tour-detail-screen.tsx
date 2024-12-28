@@ -13,6 +13,7 @@ import {useState} from 'react';
 import {DialogContact} from '~/components/common/modal/dialog-contact.tsx';
 import {routesName} from '~/constants';
 import {useAuth} from '~/hooks/use-auth.tsx';
+import React from 'react';
 
 const post = {
   title:
@@ -70,7 +71,7 @@ const TourDetailScreen = () => {
               />
             ))}
           </ScrollView>
-          <Text>{post?.description}</Text>
+          <Text className="text-base text-align">{post?.description}</Text>
         </ScrollView>
         <View className="w-full p-4 bg-white">
           <View className="flex items-center flex-row justify-between">

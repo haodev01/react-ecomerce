@@ -12,8 +12,12 @@ export const useFetch = () => {
   };
 
   const getManual = async (url: string, params: Record<string, unknown>) => {
+    const asyncConfig = {
+      accessToken: accessToken as string,
+    };
     return await http.get(url, {
       params: {...params},
+      ...asyncConfig,
     });
   };
 

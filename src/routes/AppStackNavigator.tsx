@@ -18,6 +18,8 @@ import TourScreen from '~/screens/tour/tour-screen.tsx';
 import React from 'react';
 import CartScreen from '~/screens/cart/cart-screen.tsx';
 import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
+import ListPostUserScreen from '../screens/post/list-post-user';
+import EditPostScreen from '../screens/post/edit-post-screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +46,9 @@ export type AllNavigatorParams = {
     id: string;
     title: string;
   };
+  EditPostScreen: {
+    id: string;
+  };
 };
 export type CommonNavigatorParams = {
   LoginScreen: {
@@ -67,6 +72,9 @@ export type CommonNavigatorParams = {
   CommentDetailScreen: {
     id: string;
     title: string;
+  };
+  EditPostScreen: {
+    id: string;
   };
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
@@ -113,6 +121,15 @@ export const AppStackNavigator = () => {
         <Stack.Screen
           name={routesName.CreatePostScreen}
           component={CreatePostScreen}
+        />
+        <Stack.Screen
+          name={routesName.ListPostUserScreen}
+          component={ListPostUserScreen}
+        />
+
+        <Stack.Screen
+          name={routesName.EditPostScreen}
+          component={EditPostScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

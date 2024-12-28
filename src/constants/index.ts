@@ -7,7 +7,9 @@ export const listApi = {
   LIST_POST: 'posts/user-tourguide',
   POST_DETAIL: 'posts/user-tourguide',
   GET_COMMENT: 'comments',
-  CREATE_POST: 'CREATE_POST',
+  CREATE_POST: 'posts/user-tourguide',
+  GET_POST_USER: 'posts/user',
+  DELETE_POST_USER: 'posts/user',
 };
 
 export const routesName = {
@@ -23,4 +25,6 @@ export const routesName = {
   TourScreen: 'TourScreen',
   CartScreen: 'CartScreen',
   CreatePostScreen: 'CreatePostScreen',
+  ListPostUserScreen: 'ListPostUserScreen',
+  EditPostScreen: 'EditPostScreen',
 };
