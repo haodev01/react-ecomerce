@@ -16,9 +16,10 @@ const handleHead = ({tintColor}: any) => (
 
 interface Props {
   onChange: any;
+  content?: string;
 }
 export const Editor = (props: Props) => {
-  const {onChange} = props;
+  const {onChange, content = ''} = props;
   const richText = React.useRef(null);
   const onPressAddImage = () => {};
   return (
@@ -30,6 +31,9 @@ export const Editor = (props: Props) => {
             style={{flex: 1}}>
             <Text className="text-base mb-1 mt-2">Nội dung bài viết</Text>
             <RichEditor
+              placeholder="Write your cool content here :)"
+              initialContentHTML={`<div>${content}</div>`}
+              initialHeight={250}
               ref={richText}
               onChange={descriptionText => {
                 onChange(descriptionText);

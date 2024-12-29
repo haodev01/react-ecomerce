@@ -10,6 +10,7 @@ export const listApi = {
   CREATE_POST: 'posts/user-tourguide',
   GET_POST_USER: 'posts/user',
   DELETE_POST_USER: 'posts/user',
+  GET_LIST_POST_USER: 'posts/user',
 };
 
 export const routesName = {
@@ -27,4 +28,5 @@ export const routesName = {
   CreatePostScreen: 'CreatePostScreen',
   ListPostUserScreen: 'ListPostUserScreen',
   EditPostScreen: 'EditPostScreen',
+  PostUserScreen: 'PostUserScreen',
 };

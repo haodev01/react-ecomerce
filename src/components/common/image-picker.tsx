@@ -13,10 +13,11 @@ const {width} = Dimensions.get('window');
 
 interface Props {
   setBase64Image: any;
+  imageInit?: string;
 }
 const ImagePickerComponent = (props: Props) => {
-  const {setBase64Image} = props;
-  const [imageUri, setImageUri] = useState(null); // state to store the selected image URI
+  const {setBase64Image, imageInit = ''} = props;
+  const [imageUri, setImageUri] = useState(imageInit); // state to store the selected image URI
 
   const handleSelectImage = () => {
     launchImageLibrary(

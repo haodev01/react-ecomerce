@@ -10,6 +10,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useEffect, useState} from 'react';
 import {useFetch} from '~/hooks/use-fetch.tsx';
 import {RenderHtml} from '~/components/common/render-html.tsx';
+import React from 'react';
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'PostDetailScreen'>;
 const PostDetailScreen = (props: Props) => {

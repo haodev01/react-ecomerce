@@ -2,6 +2,8 @@ import React from 'react';
 import {Image, Text, View} from 'react-native';
 import {RenderHtml} from '~/components/common/render-html.tsx';
 import {AppButton} from '../app-button';
+import {navigate} from '../../../routes/AppStackNavigator';
+import {routesName} from '../../../constants';
 
 interface Props {
   item: any;
@@ -32,7 +34,15 @@ export const PostItemUser = (props: Props) => {
         <RenderHtml source={item?.currentContent ?? ''} />
       </View>
       <View className="mt-3 flex">
-        <AppButton label="Sửa bài viêt" classCustom="mb-2" onPress={() => {}} />
+        <AppButton
+          label="Sửa bài viêt"
+          classCustom="mb-2"
+          onPress={() => {
+            navigate(routesName.EditPostScreen, {
+              id: item?.id,
+            });
+          }}
+        />
         <AppButton
           label="Xóa bài viết"
           classCustom="bg-red-500"
