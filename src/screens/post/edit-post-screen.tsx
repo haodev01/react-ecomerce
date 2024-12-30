@@ -14,6 +14,8 @@ import {
 } from '~/routes/AppStackNavigator';
 import {uploadBase64ToCloudinary} from '~/helpers';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {DropdownAddress} from '~/components/common/dropdown/dropdown-address.tsx';
+import {POST_TOPIC} from '~/constants/data.ts';
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'EditPostScreen'>;
 
@@ -23,6 +25,7 @@ const EditPostScreen = (props: Props) => {
   const [title, setTitle] = useState<string>('');
   const [base64Image, setBase64Image] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [itemSelect, setItemSelect] = useState<any>(null);
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -32,7 +35,11 @@ const EditPostScreen = (props: Props) => {
     setIsLoading(true);
     getManual(`${listApi.POST_DETAIL}/${id}`, {})
       .then((response: any) => {
-        console.log(response?.returnValue?.image);
+        console.log(response?.returnValue);
+        const item = POST_TOPIC.find(
+          item => item.value === response?.returnValue?.topic,
+        );
+        setItemSelect(item);
         setTitle(response?.returnValue?.title);
         setContent(response?.returnValue?.currentContent ?? '');
         setBase64Image(response?.returnValue?.image ?? '');
@@ -70,7 +77,7 @@ const EditPostScreen = (props: Props) => {
       });
   };
   return (
-    <LayoutCommon label="Tạo bài viết" onBack={goBack}>
+    <LayoutCommon label="Sửa bài viết" onBack={goBack}>
       <ScrollView className="px-4 mt-6">
         <View className="my-4 w-full">
           <Text className="text-base mb-1">Tiêu đề bài viết</Text>
@@ -81,6 +88,19 @@ const EditPostScreen = (props: Props) => {
             placeholder="Tiêu đề  ..."
           />
         </View>
+        {!isLoading && (
+          <View className="my-4 w-full">
+            <Text className="text-base mb-1">Danh mục bài viết</Text>
+            <DropdownAddress
+              listItem={POST_TOPIC}
+              label="Danh mục bài viết"
+              handleSelect={(item: any) => {
+                setItemSelect(item);
+              }}
+              itemSelect={itemSelect}
+            />
+          </View>
+        )}
         {!isLoading && (
           <Editor
             onChange={(value: string) => setContent(value)}

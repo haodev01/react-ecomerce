@@ -22,7 +22,7 @@ const ListPostUserScreen = () => {
   };
   const handleDeletePost = (id: number) => {
     console.log(id);
-    deleteManual(listApi.DELETE_POST_USER)
+    deleteManual(`${listApi.LIST_POST}/${id}`)
       .then(async () => {
         await getListPostUser();
       })

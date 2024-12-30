@@ -6,7 +6,6 @@ import {useAppDispatch} from '~/store/hooks.ts';
 import {changeAccessToken, changeUser} from '~/store/reducer/auth-reducer.ts';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {useToast} from '~/hooks/use-toast.ts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const useLogin = (screen = '', id = '') => {
   const [email, setEmail] = useState('trinhdinhdai22@gmail.com');

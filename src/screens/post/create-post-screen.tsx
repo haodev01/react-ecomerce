@@ -9,10 +9,13 @@ import {useFetch} from '~/hooks/use-fetch';
 import {useToast} from '~/hooks/use-toast';
 import {goBack, navigate} from '~/routes/AppStackNavigator';
 import {uploadBase64ToCloudinary} from '~/helpers';
+import {DropdownAddress} from '~/components/common/dropdown/dropdown-address.tsx';
+import {POST_TOPIC} from '~/constants/data.ts';
 
 const CreatePostScreen = () => {
   const [title, setTitle] = useState<string>('');
   const [base64Image, setBase64Image] = useState<string>('');
+  const [itemSelect, setItemSelect] = useState<any>(POST_TOPIC[0]);
 
   const [content, setContent] = useState<string>('');
 
@@ -22,14 +25,14 @@ const CreatePostScreen = () => {
   const handleCreatePost = async () => {
     const response = await uploadBase64ToCloudinary(base64Image);
     const imageUrl = response?.url;
-    if (!title || !content || !imageUrl) {
+    if (!title || !content || !imageUrl || !itemSelect?.value) {
       return showToast('Vui lòng nhập đày đủ thông tin', 'error');
     }
     postManual(listApi.CREATE_POST, {
       title,
       content,
       image: imageUrl,
-      topic: 'SUGGEST',
+      topic: itemSelect?.value,
     })
       .then(async response => {
         console.log(response);
@@ -50,6 +53,17 @@ const CreatePostScreen = () => {
             onChangeText={value => setTitle(value)}
             className="rounded-md border border-1  w-full border-gray-300 px-4"
             placeholder="Tiêu đề  ..."
+          />
+        </View>
+        <View className="my-4 w-full">
+          <Text className="text-base mb-1">Danh mục bài viết</Text>
+          <DropdownAddress
+            listItem={POST_TOPIC}
+            label="Danh mục bài viết"
+            handleSelect={(item: any) => {
+              setItemSelect(item);
+            }}
+            itemSelect={itemSelect}
           />
         </View>
         <Editor onChange={(value: string) => setContent(value)} />
