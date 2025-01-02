@@ -11,6 +11,9 @@ export const listApi = {
   GET_POST_USER: 'posts/user',
   DELETE_POST_USER: 'posts/user',
   GET_LIST_POST_USER: 'posts/user',
+  GET_TOUR: 'tours',
+  ORDER: 'orders',
+  ORDER_USER: 'orders/user',
 };
 
 export const routesName = {
@@ -29,4 +32,6 @@ export const routesName = {
   ListPostUserScreen: 'ListPostUserScreen',
   EditPostScreen: 'EditPostScreen',
   PostUserScreen: 'PostUserScreen',
+  ListTourUserScreen: 'ListTourUserScreen',
+  OrderDetailScreen: 'OrderDetailScreen',
 };

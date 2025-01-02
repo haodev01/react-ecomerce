@@ -1,50 +1,58 @@
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
 import {
+  CommonNavigatorParams,
   getCurrentRouteName,
   goBack,
   navigate,
 } from '~/routes/AppStackNavigator.tsx';
-import {formatVND} from '~/helpers';
+import {formatDateDDMMYYYY, formatDateYYYYMMDD, formatVND} from '~/helpers';
 import {AppButton} from '~/components/common';
 import {SvgItem} from '~/components/items';
 import {svgsNames} from '~/assets/svgs';
-import {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DialogContact} from '~/components/common/modal/dialog-contact.tsx';
-import {routesName} from '~/constants';
+import {listApi, routesName} from '~/constants';
 import {useAuth} from '~/hooks/use-auth.tsx';
-import React from 'react';
+import {useFetch} from '~/hooks/use-fetch.tsx';
+import {useToast} from '~/hooks/use-toast.ts';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import DatePicker from 'react-native-date-picker';
 
-const post = {
-  title:
-    'Miền Tây: Cần Thơ - Cà Mau - Đất Mũi - Bạc Liêu - Sóc Trăng - Trải Nghiệm gói bánh tét Tết, làm mứt gừng | Mâm cỗ ngày Tết ',
-  description: `
-Artificial Intelligence (AI) has evolved dramatically over the past decade, moving from a niche technology to a cornerstone of innovation in virtually every industry. In 2024, AI continues to redefine the boundaries of what machines can do, offering groundbreaking advancements in areas such as natural language processing, computer vision, robotics, and decision-making systems.
+type Props = NativeStackScreenProps<CommonNavigatorParams, 'PostDetailScreen'>;
+const TourDetailScreen = (props: Props) => {
+  const {route} = props;
+  const {id} = route.params;
 
-The opportunities presented by AI are immense. For example, in healthcare, AI-powered tools are enabling early disease detection through medical imaging, personalized treatment plans based on genetic data, and even robotic-assisted surgeries. In education, AI-driven platforms provide personalized learning experiences, catering to each student's pace and style of learning. Moreover, in transportation, self-driving cars powered by AI are set to reduce traffic accidents and improve fuel efficiency.
-
-However, alongside these opportunities come significant challenges. One of the most pressing concerns is ethical AI development. Ensuring that AI systems are unbiased and fair remains a formidable task, particularly when training data often reflects human prejudices. Another challenge lies in job displacement, as automation continues to replace tasks traditionally performed by humans. Industries such as manufacturing and logistics are particularly vulnerable to this shift, raising concerns about economic inequality and workforce reskilling.
-
-Privacy is another critical issue. With AI systems requiring vast amounts of data to function effectively, individuals' personal information is often collected, stored, and analyzed at an unprecedented scale. This raises questions about how data is used, who controls it, and how individuals can protect their privacy in an increasingly connected world.
-
-Despite these challenges, governments, academia, and private companies are collaborating to create frameworks and regulations that ensure AI is developed responsibly. Initiatives focusing on explainable AI (XAI) aim to make AI systems more transparent and understandable, helping build trust among users. Furthermore, advancements in AI safety research are paving the way for technologies that are robust, reliable, and aligned with human values.
-
-In conclusion, the future of AI is both exciting and complex. As we navigate this rapidly evolving landscape, it is crucial to strike a balance between harnessing AI's potential and addressing its challenges. By doing so, we can ensure that AI serves as a force for good, driving innovation while safeguarding ethical principles and societal well-being.
-  `,
-  created_time: '2024-10-10',
-  listImage: [
-    'https://media.travel.com.vn/LastMinute/lm__2412184_mbkshoppingmall.webp',
-    'https://media.travel.com.vn/LastMinute/lm__2412184_mbkshoppingmall.webp',
-    'https://media.travel.com.vn/LastMinute/lm__2412184_mbkshoppingmall.webp',
-    'https://media.travel.com.vn/LastMinute/lm__2412184_mbkshoppingmall.webp',
-    'https://media.travel.com.vn/LastMinute/lm__2412184_mbkshoppingmall.webp',
-  ],
-  image:
-    'https://media.travel.com.vn/LastMinute/lm__2412184_mbkshoppingmall.webp',
-};
-const TourDetailScreen = () => {
+  const [date, setDate] = useState(new Date());
+  const [isShowFilterDate, setIsShowFilterDate] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [tourDetail, setTourDetail] = useState<any>();
+  const [numberOfMember, setNumberOfMember] = useState('1');
   const {isLogged} = useAuth();
+  const {getManual, postManual} = useFetch();
+  const {showToast} = useToast();
+
+  const getTourDetail = async () => {
+    getManual(`${listApi.GET_TOUR}/${id}`, {})
+      .then((response: any) => {
+        console.log(response);
+        setTourDetail(response?.returnValue);
+      })
+      .catch(error => {
+        showToast(error?.response?.data?.info?.message);
+      });
+  };
+  useEffect(() => {
+    getTourDetail().then();
+  }, []);
 
   const handlePress = async () => {
     if (!isLogged) {
@@ -53,31 +61,98 @@ const TourDetailScreen = () => {
         id: '1',
       });
     }
+    if (!date || !numberOfMember) {
+      return showToast('Vui lòng điền đầy đủ thông tin', 'error');
+    }
+    postManual(listApi.ORDER, {
+      tourId: id,
+      startDate: formatDateYYYYMMDD(date),
+      numberOfMember: Number(numberOfMember),
+    })
+      .then(async response => {
+        console.log(response);
+        showToast('Đặt tour thành công', 'success');
+      })
+      .catch(error => {
+        console.log(error);
+        showToast(error?.response?.data?.info?.message, 'error');
+      });
   };
-
   return (
-    <LayoutCommon label={post?.title} onBack={goBack}>
+    <LayoutCommon label={tourDetail?.name} onBack={goBack}>
       <View className="flex justify-between flex-1">
         <ScrollView
           className="mt-4 px-4 flex-1 "
           showsVerticalScrollIndicator={false}>
-          <Text className="text-xl  font-bold mt-2">{post?.title}</Text>
+          <Text className="text-xl  font-bold mt-2">{tourDetail?.name}</Text>
           <ScrollView horizontal={true} className="mt-4">
-            {post.listImage.map((image, index) => (
+            {tourDetail?.images?.map((image: any, index: number) => (
               <Image
                 key={index}
-                source={{uri: image}}
+                source={{uri: image?.url}}
                 className="w-[300px] h-[250px] rounded-lg mr-2"
               />
             ))}
           </ScrollView>
-          <Text className="text-base text-align">{post?.description}</Text>
+          <Text className="text-base text-align">
+            {tourDetail?.description}
+          </Text>
         </ScrollView>
         <View className="w-full p-4 bg-white">
+          <View className="flex flex-row items-center gap-2">
+            <TouchableOpacity
+              className={`w-full max-w-[50%] px-4 rounded-2xl h-14 flex-row items-center border-2 justify-between bg-white ${
+                isShowFilterDate ? 'border-007' : 'border-222-10'
+              } border`}
+              activeOpacity={1}
+              onPress={() => setIsShowFilterDate(true)}>
+              <View className="flex-col">
+                <Text
+                  className={`${
+                    isShowFilterDate ? 'text-007' : 'text-8080'
+                  } text-xs`}>
+                  Chọn ngày
+                </Text>
+                <View className="flex-row items-center">
+                  <Text className="text-base text-222">
+                    {formatDateDDMMYYYY(date)}
+                  </Text>
+                  {/*{isShowFilterDate && <AnimationBlinking classWind="ml-[0.5]" />}*/}
+                </View>
+              </View>
+              <SvgItem name={svgsNames.IconContact} />
+            </TouchableOpacity>
+            <View className="flex-1">
+              <TextInput
+                value={numberOfMember}
+                onChangeText={value => setNumberOfMember(value)}
+                keyboardType="numeric"
+                placeholder="Số người"
+                className="rounded-md border border-1  w-full border-gray-300 px-4"
+              />
+            </View>
+          </View>
+          <DatePicker
+            modal
+            mode="date"
+            open={isShowFilterDate}
+            date={date}
+            confirmText="Xác nhận"
+            cancelText="Hủy"
+            title="Chọn ngày"
+            onConfirm={date => {
+              setIsShowFilterDate(false);
+              console.log(date);
+              setDate(date);
+            }}
+            onCancel={() => {
+              setIsShowFilterDate(false);
+            }}
+          />
           <View className="flex items-center flex-row justify-between">
             <Text className="font-bold text-base ">Giá từ:</Text>
             <Text className="text-lg font-bold text-primary">
-              {formatVND(10000000)}
+              {formatVND(tourDetail?.feePerMember)}
               <Text className="text-gray-500 font-normal">/khách</Text>
             </Text>
           </View>

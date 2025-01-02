@@ -21,6 +21,8 @@ import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
 import ListPostUserScreen from '../screens/post/list-post-user';
 import EditPostScreen from '../screens/post/edit-post-screen';
 import PostUserScreen from '../screens/post/post-user-screen';
+import ListTourUserScreen from '~/screens/tour/list-tour-user-screen';
+import OrderDetailScreen from '~/screens/orders/order-detail';
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +48,10 @@ export type AllNavigatorParams = {
   CommentDetailScreen: {
     id: string;
     title: string;
+  };
+  ListTourUserScreen: undefined;
+  OrderDetailScreen: {
+    id: string;
   };
 };
 export type CommonNavigatorParams = {
@@ -75,6 +81,10 @@ export type CommonNavigatorParams = {
     id: string;
   };
   PostUserScreen: undefined;
+  ListTourUserScreen: undefined;
+  OrderDetailScreen: {
+    id: string;
+  };
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
@@ -132,6 +142,14 @@ export const AppStackNavigator = () => {
         <Stack.Screen
           name={routesName.PostUserScreen}
           component={PostUserScreen}
+        />
+        <Stack.Screen
+          name={routesName.ListTourUserScreen}
+          component={ListTourUserScreen}
+        />
+        <Stack.Screen
+          name={routesName.OrderDetailScreen}
+          component={OrderDetailScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

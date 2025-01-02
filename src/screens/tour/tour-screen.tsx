@@ -1,17 +1,34 @@
 import {ScrollView, TextInput, View} from 'react-native';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
-import {TOUR_TYPES, tourList} from '~/constants/data.ts';
+import {LIST_PROVINCES, TOUR_TYPES} from '~/constants/data.ts';
 import {goBack} from '~/routes/AppStackNavigator.tsx';
 import {TourItem} from '~/components/common/tour/tour-item.tsx';
 import {DropdownAddress} from '~/components/common/dropdown/dropdown-address.tsx';
-import {useState} from 'react';
 import {AppButton} from '~/components/common';
+import {useTour} from '~/hooks/use-tour.ts';
 
 const TourScreen = () => {
-  const [type, setType] = useState(null);
-  const [city, setCity] = useState(null);
+  const {
+    listTour,
+    setType,
+    setCity,
+    city,
+    type,
+    getListTour,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+  } = useTour();
 
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    getListTour().then();
+  };
+
+  const listProvince = LIST_PROVINCES.map((item: any) => ({
+    label: item?.label,
+    value: item?.value?.toString(),
+  }));
 
   return (
     <LayoutCommon label="Danh sách tour" onBack={goBack}>
@@ -19,7 +36,7 @@ const TourScreen = () => {
         <View className="bg-white py-2 px-4 mb-1 shadow-lg">
           <View className="flex flex-row mb-2">
             <DropdownAddress
-              listItem={TOUR_TYPES}
+              listItem={listProvince}
               label="Chọn thành phố"
               handleSelect={(item: any) => {
                 setCity(item);
@@ -40,6 +57,8 @@ const TourScreen = () => {
           <View className="flex flex-row gap-x-2">
             <View className="mb-4 flex-1">
               <TextInput
+                value={minPrice}
+                onChangeText={value => setMinPrice(value)}
                 keyboardType="numeric"
                 className="rounded-md border border-1  w-full border-gray-300 px-4"
                 placeholder="Giá nhỏ nhất"
@@ -47,6 +66,8 @@ const TourScreen = () => {
             </View>
             <View className="mb-4 flex-1">
               <TextInput
+                value={maxPrice}
+                onChangeText={value => setMaxPrice(value)}
                 keyboardType="numeric"
                 className="rounded-md border border-1  w-full border-gray-300 px-4"
                 placeholder="Giá cao nhất"
@@ -62,7 +83,7 @@ const TourScreen = () => {
         <ScrollView
           className="pb-[120px] px-4 "
           showsVerticalScrollIndicator={false}>
-          {tourList.map((item, index) => (
+          {listTour?.map((item, index) => (
             <TourItem
               customImage="h-[200px]"
               classNameCustom="w-full mb-6 "

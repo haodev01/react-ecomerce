@@ -1,6 +1,7 @@
 import {Alert} from 'react-native';
 import axios from 'axios';
 import {generateSignature} from '~/helpers/hash.ts';
+import moment from 'moment';
 
 export function validateEmail(email: string) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -100,5 +101,25 @@ export const uploadBase64ToCloudinary = async (base64: any) => {
   } catch (error) {
     console.error('Error uploading image:', error);
     Alert.alert('Error', 'Could not upload the image.');
+  }
+};
+export const formatDateDDMMYYYY = (date: any) => {
+  if (!date) {
+    return '';
+  }
+  try {
+    return moment(date).format('DD/MM/YYYY');
+  } catch (e) {
+    return moment().format('DD/MM/YYYY');
+  }
+};
+export const formatDateYYYYMMDD = (date: any) => {
+  if (!date) {
+    return '';
+  }
+  try {
+    return moment(date).format('YYYY-MM-DD');
+  } catch (e) {
+    return moment().format('YYYY-MM-DD');
   }
 };

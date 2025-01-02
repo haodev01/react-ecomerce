@@ -7,6 +7,7 @@ import {TourItem} from '~/components/common/tour/tour-item.tsx';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
 import {usePost} from '~/hooks/use-post.ts';
+import {useTour} from '~/hooks/use-tour.ts';
 
 const locations = [
   {
@@ -36,6 +37,7 @@ const locations = [
 
 const HomeScreen = () => {
   const {listPost} = usePost();
+  const {listTour} = useTour();
   return (
     <LayoutHome>
       <View className="pt-6 px-4">
@@ -59,7 +61,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
           </View>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {tourList.map((item, index) => {
+            {listTour.map((item, index) => {
               return <TourItem item={item} key={index} />;
             })}
           </ScrollView>

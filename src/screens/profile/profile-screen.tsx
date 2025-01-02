@@ -28,6 +28,12 @@ const tabMenu = [
   },
   {
     id: 1,
+    label: 'Chuyến đi của bạn',
+    icon: svgsNames.IconProfile,
+    route: routesName.ListTourUserScreen,
+  },
+  {
+    id: 1,
     label: 'Giỏ hàng',
     icon: svgsNames.IconCart,
     route: routesName.CartScreen,

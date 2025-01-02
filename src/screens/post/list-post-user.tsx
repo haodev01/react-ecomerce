@@ -5,10 +5,12 @@ import {useFetch} from '~/hooks/use-fetch';
 import {LayoutCommon} from '~/components/layouts/layout-common';
 import {goBack} from '~/routes/AppStackNavigator';
 import {PostItemUser} from '~/components/common/post/post-item-user';
+import {useToast} from '~/hooks/use-toast.ts';
 
 const ListPostUserScreen = () => {
   const [listPost, setListPost] = useState([]);
   const {getManual, deleteManual} = useFetch();
+  const {showToast} = useToast();
 
   const getListPostUser = async () => {
     getManual(listApi.GET_POST_USER, {})
@@ -25,6 +27,7 @@ const ListPostUserScreen = () => {
     deleteManual(`${listApi.LIST_POST}/${id}`)
       .then(async () => {
         await getListPostUser();
+        showToast('Xóa bài viêt thành công');
       })
       .catch(error => {
         console.log(error);
