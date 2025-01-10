@@ -24,7 +24,7 @@ const LIST_STATUS = [
   },
   {
     value: 'processing',
-    label: 'Đã thanh toán',
+    label: 'Đã bắt đầu',
   },
   {
     value: 'end',

@@ -123,3 +123,36 @@ export const formatDateYYYYMMDD = (date: any) => {
     return moment().format('YYYY-MM-DD');
   }
 };
+export const calculateDays = (start, end) => {
+  const startDay = new Date(start);
+  const endDay = new Date(end);
+  const timeDiff = endDay - startDay;
+  const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+  return `${dayDiff + 1} ngày`;
+};
+
+export const formatCurrency = (
+  amount: number | string,
+  options: {
+    currency?: string;
+    minimumFractionDigits?: number;
+    maximumFractionDigits?: number;
+  } = {},
+): string => {
+  const {
+    currency = 'VND',
+    minimumFractionDigits = 0,
+    maximumFractionDigits = 0,
+  } = options;
+
+  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+
+  if (isNaN(numAmount)) return '';
+
+  return new Intl.NumberFormat('vi-VN', {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: minimumFractionDigits,
+    maximumFractionDigits: maximumFractionDigits,
+  }).format(numAmount);
+};

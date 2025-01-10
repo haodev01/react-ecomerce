@@ -28,9 +28,10 @@ export const useFetch = () => {
     return await http.put(url, data, asyncConfig as any);
   };
 
-  const deleteManual = async (url: string) => {
+  const deleteManual = async (url: string, data = {}) => {
     const asyncConfig = {
       accessToken: accessToken as string,
+      data,
     };
     return await http.delete(url, asyncConfig as any);
   };
