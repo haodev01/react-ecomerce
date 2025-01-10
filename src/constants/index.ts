@@ -14,6 +14,10 @@ export const listApi = {
   GET_TOUR: 'tours',
   ORDER: 'orders',
   ORDER_USER: 'orders/user',
+  ORDER_PREPAID: 'orders/prepaid',
+  ORDER_PAID: 'orders/paid',
+  ORDER_START_USER: 'orders/start-user',
+  ORDER_END_ORDER: 'orders/end-user',
 };
 
 export const routesName = {

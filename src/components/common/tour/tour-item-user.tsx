@@ -1,9 +1,8 @@
+import React, {useCallback} from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
 import {formatVND} from '~/helpers';
-import {AppButton} from '~/components/common';
-import React, {useCallback} from 'react';
+import {navigate} from '~/routes/AppStackNavigator.tsx';
 
 interface Props {
   item: any;
@@ -24,17 +23,17 @@ export const TourItemUser = (props: Props) => {
       case '0':
         return 'Chờ xác nhận';
       case '1':
-        return 'Chờ xác nhận';
+        return 'Chờ đặt cọc';
       case '2':
         return 'Chờ thanh toán';
       case '3':
-        return 'Đã thanh toán';
+        return 'Chờ bắt đầu';
       case '4':
-        return 'Đã thanh toán';
+        return 'Đã bắt đầu';
       case '5':
         return 'Hoàn thành';
       case '6':
-        return 'Hoàn thành';
+        return 'Đã hủy';
       default:
         return 'Không xác định';
     }
