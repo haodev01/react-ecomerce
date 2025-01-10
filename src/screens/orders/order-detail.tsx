@@ -168,7 +168,6 @@ const OrderDetailScreen = (props: Props) => {
   const handleEnd = async () => {
     putManual(`${listApi.ORDER_END_ORDER}`, {orderId: id})
       .then(async (response: any) => {
-        console.log(response);
         if (response.statusCode === 200) {
           await getOrderDetail();
           showToast('Kết thúc chuyến đi thành công', 'success');
@@ -202,7 +201,6 @@ const OrderDetailScreen = (props: Props) => {
     }
     return true;
   }, [orderDetail?.status]);
-  console.log(orderDetail?.status);
 
   return (
     <LayoutCommon label="Chi tiết đơn hàng" onBack={goBack}>

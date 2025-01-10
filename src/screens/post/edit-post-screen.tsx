@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {ScrollView, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {AppButton} from '~/components/common';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
 import {Editor} from '~/components/common/editor';
@@ -28,6 +35,7 @@ const EditPostScreen = (props: Props) => {
   const [itemSelect, setItemSelect] = useState<any>(null);
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingCreate, setIsLoadingCreate] = useState(false);
 
   const {putManual, getManual} = useFetch();
   const {showToast} = useToast();
@@ -52,6 +60,7 @@ const EditPostScreen = (props: Props) => {
 
   const handleEditPost = async () => {
     let imageUrl: string | undefined;
+    setIsLoadingCreate(true);
     if (base64Image.length > 1000) {
       const response = await uploadBase64ToCloudinary(base64Image);
       imageUrl = response?.url;
@@ -59,8 +68,10 @@ const EditPostScreen = (props: Props) => {
       imageUrl = base64Image;
     }
     if (!title || !content || !imageUrl) {
+      setIsLoadingCreate(false);
       return showToast('Vui lòng nhập đày đủ thông tin', 'error');
     }
+    setIsLoadingCreate(true);
     putManual(listApi.CREATE_POST, {
       postId: id,
       title,
@@ -74,7 +85,8 @@ const EditPostScreen = (props: Props) => {
       })
       .catch(error => {
         console.log(error);
-      });
+      })
+      .finally(() => setIsLoadingCreate(false));
   };
   return (
     <LayoutCommon label="Sửa bài viết" onBack={goBack}>
@@ -114,7 +126,16 @@ const EditPostScreen = (props: Props) => {
           />
         )}
         <View className="mt-5 mb-6">
-          <AppButton label="Sửa bài viết" onPress={handleEditPost} />
+          {isLoadingCreate ? (
+            <TouchableOpacity
+              className={
+                'w-full bg-primary rounded-lg h-12 flex items-center justify-center  '
+              }>
+              <ActivityIndicator size="small" color="white" />
+            </TouchableOpacity>
+          ) : (
+            <AppButton label="Sửa bài viết" onPress={handleEditPost} />
+          )}
         </View>
       </ScrollView>
     </LayoutCommon>

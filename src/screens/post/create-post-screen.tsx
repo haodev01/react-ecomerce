@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {ScrollView, Text, TextInput, View} from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {AppButton} from '~/components/common';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
 import {Editor} from '~/components/common/editor';
@@ -16,6 +23,7 @@ const CreatePostScreen = () => {
   const [title, setTitle] = useState<string>('');
   const [base64Image, setBase64Image] = useState<string>('');
   const [itemSelect, setItemSelect] = useState<any>(POST_TOPIC[0]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [content, setContent] = useState<string>('');
 
@@ -23,11 +31,14 @@ const CreatePostScreen = () => {
   const {showToast} = useToast();
 
   const handleCreatePost = async () => {
+    setIsLoading(true);
     const response = await uploadBase64ToCloudinary(base64Image);
     const imageUrl = response?.url;
     if (!title || !content || !imageUrl || !itemSelect?.value) {
+      setIsLoading(false);
       return showToast('Vui lòng nhập đày đủ thông tin', 'error');
     }
+    setIsLoading(true);
     postManual(listApi.CREATE_POST, {
       title,
       content,
@@ -41,7 +52,8 @@ const CreatePostScreen = () => {
       })
       .catch(error => {
         console.log(error);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
   return (
     <LayoutCommon label="Tạo bài viết" onBack={goBack}>
@@ -69,7 +81,16 @@ const CreatePostScreen = () => {
         <Editor onChange={(value: string) => setContent(value)} />
         <ImagePickerComponent setBase64Image={setBase64Image} />
         <View className="mt-5 mb-6">
-          <AppButton label="Tạo bài viết" onPress={handleCreatePost} />
+          {isLoading ? (
+            <TouchableOpacity
+              className={
+                'w-full bg-primary rounded-lg h-12 flex items-center justify-center  '
+              }>
+              <ActivityIndicator size="small" color="white" />
+            </TouchableOpacity>
+          ) : (
+            <AppButton label="Tạo bài viết" onPress={handleCreatePost} />
+          )}
         </View>
       </ScrollView>
     </LayoutCommon>
