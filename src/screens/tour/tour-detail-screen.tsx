@@ -58,7 +58,7 @@ const TourDetailScreen = (props: Props) => {
     if (!isLogged) {
       return navigate(routesName.LoginScreen, {
         screen: getCurrentRouteName(),
-        id: '1',
+        id,
       });
     }
     if (!date || !numberOfMember) {

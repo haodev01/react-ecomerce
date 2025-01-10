@@ -51,13 +51,15 @@ export const TourItemUser = (props: Props) => {
           <Text className="text-white font-medium">{getStatusOrder()}</Text>
         </View>
       </View>
-      <Text className="text-base font-bold my-1" numberOfLines={1}>
+      <Text className="text-base font-bold my-1" numberOfLines={3}>
         {item?.tour?.name}
       </Text>
-      <Text className="text-base font-medium mt-2">Giá từ:</Text>
-      <Text className="text-lg font-bold text-primary " numberOfLines={3}>
-        {formatVND(item?.tour?.basePrice)}
-      </Text>
+      <View className="flex flex-row items-center">
+        <Text className="text-lg font-medium mr-2">Giá từ:</Text>
+        <Text className="text-base font-bold text-primary " numberOfLines={3}>
+          {formatVND(item?.tour?.basePrice)}
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 };

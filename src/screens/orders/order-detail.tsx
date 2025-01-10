@@ -18,6 +18,7 @@ import {CommonNavigatorParams, goBack} from '~/routes/AppStackNavigator.tsx';
 import {AppButton} from '../../components/common';
 import {DialogBase} from '../../components/common/modal/dialog-base';
 import {calculateDays, formatCurrency} from '../../helpers';
+import Collapse from '~/components/common/collapse.tsx';
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'OrderDetailScreen'>;
 
@@ -201,6 +202,15 @@ const OrderDetailScreen = (props: Props) => {
     }
     return true;
   }, [orderDetail?.status]);
+  const handleItemSchedule = (tourSchedule: any) => {
+    return tourSchedule?.map((item: any, index: number) => {
+      return {
+        key: String(index),
+        label: `Ngày ${index + 1}`,
+        children: item.content,
+      };
+    });
+  };
 
   return (
     <LayoutCommon label="Chi tiết đơn hàng" onBack={goBack}>
@@ -269,6 +279,7 @@ const OrderDetailScreen = (props: Props) => {
                     ),
                   )}
                 </ScrollView>
+
                 <View>
                   <View className="mt-4 mb-2">
                     <Text className="text-2xl font-bold">Giá tiền</Text>
@@ -301,6 +312,14 @@ const OrderDetailScreen = (props: Props) => {
                       {formatCurrency(orderDetail?.price)}
                     </Text>
                   </View>
+                </View>
+                <View className="">
+                  <View className="mt-4 mb-2">
+                    <Text className="text-2xl font-bold">Lịch trình</Text>
+                  </View>
+                  <Collapse
+                    items={handleItemSchedule(orderDetail?.orderSchedule)}
+                  />
                 </View>
                 <View>
                   <View className="pt-5 text-3xl">
@@ -404,23 +423,25 @@ const OrderDetailScreen = (props: Props) => {
                   </View>
                 </View>
               </ScrollView>
-              <View className="bg-white p-4 border-t border-gray-300">
-                {isShowButtonDelete && (
-                  <AppButton
-                    label="Hủy chuyến đi"
-                    onPress={() => setVisibleDelete(true)}
-                    classCustom="mb-2"
-                  />
-                )}
-                {isShowButton && (
-                  <AppButton
-                    label={getLabelButton()}
-                    onPress={() => {
-                      setVisible(true);
-                    }}
-                  />
-                )}
-              </View>
+              {(isShowButtonDelete || isShowButton) && (
+                <View className="bg-white p-4 border-t border-gray-300">
+                  {isShowButtonDelete && (
+                    <AppButton
+                      label="Hủy chuyến đi"
+                      onPress={() => setVisibleDelete(true)}
+                      classCustom="mb-2"
+                    />
+                  )}
+                  {isShowButton && (
+                    <AppButton
+                      label={getLabelButton()}
+                      onPress={() => {
+                        setVisible(true);
+                      }}
+                    />
+                  )}
+                </View>
+              )}
             </View>
             <DialogBase visible={visibleDelete}>
               <View>

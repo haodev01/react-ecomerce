@@ -1,4 +1,4 @@
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import {goBack, navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
 import {LayoutHome} from '~/components/layouts/layout-home.tsx';
@@ -60,9 +60,12 @@ const ProfileScreen = () => {
             </View>
           )}
           {!isLogged && (
-            <View>
+            <View className="mt-4">
+              <Text className="text-base text-center mb-2 px-6">
+                Bạn vui lòng đăng nhập để trải nghiệm hết các tính năng
+              </Text>
               <AppButton
-                label="Đăng nhập"
+                label="Đăng nhập ngay"
                 onPress={() => navigate(routesName.LoginScreen)}
               />
             </View>
