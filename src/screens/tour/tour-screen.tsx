@@ -1,4 +1,10 @@
-import {ScrollView, TextInput, View} from 'react-native';
+import {
+  ScrollView,
+  TextInput,
+  View,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
 import {LIST_PROVINCES, TOUR_TYPES} from '~/constants/data.ts';
 import {goBack} from '~/routes/AppStackNavigator.tsx';
@@ -19,6 +25,7 @@ const TourScreen = () => {
     setMinPrice,
     maxPrice,
     setMaxPrice,
+    isLoading,
   } = useTour();
 
   const handleSearch = () => {
@@ -83,6 +90,7 @@ const TourScreen = () => {
         <ScrollView
           className="pb-[120px] px-4 "
           showsVerticalScrollIndicator={false}>
+          {isLoading && <ActivityIndicator size="large" color="#1677ff" />}
           {listTour?.map((item, index) => (
             <TourItem
               customImage="h-[200px]"
@@ -91,6 +99,13 @@ const TourScreen = () => {
               key={index}
             />
           ))}
+          {!isLoading && listTour?.length === 0 && (
+            <View className="flex-1 items-center justify-center mt-5">
+              <Text className="text-gray-500 text-lg">
+                Không tìm thấy dữ liệu
+              </Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     </LayoutCommon>

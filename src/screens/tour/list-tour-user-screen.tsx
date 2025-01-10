@@ -93,6 +93,11 @@ const ListTourUserScreen = () => {
               />
             );
           })}
+          {!isLoading && listOrder?.length === 0 && (
+            <View className="flex-1 justify-center items-center">
+              <Text className="text-gray-500">Không có chuyện đi nào</Text>
+            </View>
+          )}
         </ScrollView>
       </View>
     </LayoutCommon>

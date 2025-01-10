@@ -8,11 +8,13 @@ export const useTour = () => {
   const [city, setCity] = useState<any>(null);
   const [minPrice, setMinPrice] = useState<any>(null);
   const [maxPrice, setMaxPrice] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [listTour, setListTour] = useState([]);
   const {getManual} = useFetch();
   const {showToast} = useToast();
   const getListTour = async () => {
+    setIsLoading(true);
     getManual(listApi.GET_TOUR, {
       types: type?.value,
       province: city?.value,
@@ -24,6 +26,9 @@ export const useTour = () => {
       })
       .catch(error => {
         showToast(error?.response?.data?.info?.message, 'error');
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
   useEffect(() => {
@@ -41,5 +46,6 @@ export const useTour = () => {
     maxPrice,
     setMaxPrice,
     getListTour,
+    isLoading,
   };
 };

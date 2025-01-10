@@ -34,12 +34,6 @@ const tabMenu = [
   },
   {
     id: 1,
-    label: 'Giỏ hàng',
-    icon: svgsNames.IconCart,
-    route: routesName.CartScreen,
-  },
-  {
-    id: 1,
     label: 'Đăng xuât',
     icon: svgsNames.IconLogout,
     action: 'logout',

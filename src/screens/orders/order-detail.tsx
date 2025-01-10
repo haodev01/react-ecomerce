@@ -103,6 +103,9 @@ const OrderDetailScreen = (props: Props) => {
       })
       .catch(error => {
         showToast(error?.response?.data?.info?.message, 'error');
+      })
+      .finally(() => {
+        setVisibleDelete(false);
       });
   };
 
