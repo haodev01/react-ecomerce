@@ -94,7 +94,7 @@ const TourDetailScreen = (props: Props) => {
               />
             ))}
           </ScrollView>
-          <Text className="text-base text-align">
+          <Text className="text-base text-align mt-4">
             {tourDetail?.description}
           </Text>
         </ScrollView>

@@ -19,21 +19,25 @@ export const TabMenuItem = ({item, hasBorderBottom = false}: any) => {
       dispatch(changeAccessToken(''));
       dispatch(changeUser({} as User));
       await navigate(routesName.HomeScreen);
+    } else if (item?.action === 'deposit') {
+      item?.handler();
     } else {
       await navigate(item.route);
     }
   };
 
   return (
-    <TouchableOpacity className="w-full" onPress={handleOnPress}>
-      <View className="w-full py-4 px-4 flex-row items-center justify-between">
-        <SvgItem name={item.icon} />
-        <View className="flex-1 mx-3 flex-row items-center">
-          <Text className={'text-base text-222'}>{item.label}</Text>
+    <>
+      <TouchableOpacity className="w-full" onPress={handleOnPress}>
+        <View className="w-full py-4 px-4 flex-row items-center justify-between">
+          <SvgItem name={item.icon} />
+          <View className="flex-1 mx-3 flex-row items-center">
+            <Text className={'text-base text-222'}>{item.label}</Text>
+          </View>
+          {item.route && <SvgItem name={svgsNames.ArrowRight} />}
         </View>
-        {item.route && <SvgItem name={svgsNames.ArrowRight} />}
-      </View>
-      {hasBorderBottom && <BorderDashItem />}
-    </TouchableOpacity>
+        {hasBorderBottom && <BorderDashItem />}
+      </TouchableOpacity>
+    </>
   );
 };
