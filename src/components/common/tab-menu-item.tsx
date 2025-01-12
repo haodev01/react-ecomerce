@@ -9,6 +9,7 @@ import {useAppDispatch} from '~/store/hooks.ts';
 import {
   changeAccessToken,
   changeUser,
+  changeUserInfo,
   User,
 } from '~/store/reducer/auth-reducer.ts';
 
@@ -18,6 +19,7 @@ export const TabMenuItem = ({item, hasBorderBottom = false}: any) => {
     if (item?.action === 'logout') {
       dispatch(changeAccessToken(''));
       dispatch(changeUser({} as User));
+      dispatch(changeUserInfo({}));
       await navigate(routesName.HomeScreen);
     } else if (item?.action === 'deposit') {
       item?.handler();

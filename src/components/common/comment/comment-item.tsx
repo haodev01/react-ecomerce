@@ -1,9 +1,9 @@
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {SvgItem} from '~/components/items';
 import {svgsNames} from '~/assets/svgs';
 import {formatTimeAgo} from '~/helpers';
 import {useAuth} from '~/hooks/use-auth.tsx';
-
+import React from 'react';
 interface Props {
   comment: any;
   onDelete?: () => void;
@@ -12,11 +12,21 @@ interface Props {
 export const CommentItem = (props: Props) => {
   const {comment, onDelete, onEdit} = props;
   const {user} = useAuth();
+  console.log({comment});
   return (
     <View className="bg-gray-300  rounded-lg w-full p-2 mb-2">
       <View className="flex  flex-row justify-between ">
         <View className="flex flex-row items-center">
-          <SvgItem name={svgsNames.AvatarDefault} width={24} height={24} />
+          {comment?.user?.avatar ? (
+            <Image
+              className="rounded-full"
+              source={{uri: comment?.user?.avatar}}
+              width={24}
+              height={24}
+            />
+          ) : (
+            <SvgItem name={svgsNames.AvatarDefault} width={24} height={24} />
+          )}
           <Text className="text-gray-500 text-[15px] font-medium inline bg-gray-300 ml-2 mr-4 ">
             {comment?.user?.username}
           </Text>

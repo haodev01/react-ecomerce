@@ -34,10 +34,12 @@ const PostDetailScreen = (props: Props) => {
   return (
     <LayoutCommon label={postDetail?.title} onBack={goBack}>
       <ScrollView className="mt-4 px-4" showsVerticalScrollIndicator={false}>
-        <Image
-          source={{uri: postDetail?.image}}
-          className="w-ful h-[250px] rounded-lg"
-        />
+        {postDetail?.image && (
+          <Image
+            source={{uri: postDetail?.image}}
+            className="w-full h-60 rounded-xl"
+          />
+        )}
         <View className="mt-2">
           <TouchableOpacity
             onPress={async () => {
@@ -46,11 +48,13 @@ const PostDetailScreen = (props: Props) => {
                 title: postDetail?.title,
               });
             }}>
-            <Text>Bình luận</Text>
+            <Text className="text-base text-primary">Bình luận</Text>
           </TouchableOpacity>
         </View>
-        <Text className="text-lg font-bold mt-2">{postDetail?.title}</Text>
-        <RenderHtml source={postDetail?.currentContent} />
+        <Text className="text-2xl font-bold mt-2">{postDetail?.title}</Text>
+        <View className="text-lg mt-1">
+          <RenderHtml source={postDetail?.currentContent} />
+        </View>
       </ScrollView>
     </LayoutCommon>
   );

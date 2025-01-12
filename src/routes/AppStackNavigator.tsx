@@ -4,25 +4,28 @@ import {
   NavigationContainer,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import LoginScreen from '~/screens/auth/login-screen.tsx';
-import RegisterScreen from '~/screens/auth/register-screen.tsx';
-import HomeScreen from '~/screens/home/home-screen.tsx';
+import React from 'react';
+import {routesName} from '~/constants';
+import {TabHome} from '~/routes/tab-home.tsx';
 import ConfirmOtpScreen from '~/screens/auth/confirm-otp.tsx';
 import ForgotPassword from '~/screens/auth/forgot-password.tsx';
-import {TabHome} from '~/routes/tab-home.tsx';
-import {routesName} from '~/constants';
-import PostDetailScreen from '~/screens/post/post=detail-screen.tsx';
+import LoginScreen from '~/screens/auth/login-screen.tsx';
+import RegisterScreen from '~/screens/auth/register-screen.tsx';
+import CartScreen from '~/screens/cart/cart-screen.tsx';
+import HomeScreen from '~/screens/home/home-screen.tsx';
+import OrderDetailScreen from '~/screens/orders/order-detail';
 import {CommentDetailScreen} from '~/screens/post/comment-detail.tsx';
+import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
+import PostDetailScreen from '~/screens/post/post=detail-screen.tsx';
+import ListTourUserScreen from '~/screens/tour/list-tour-user-screen';
 import TourDetailScreen from '~/screens/tour/tour-detail-screen.tsx';
 import TourScreen from '~/screens/tour/tour-screen.tsx';
-import React from 'react';
-import CartScreen from '~/screens/cart/cart-screen.tsx';
-import CreatePostScreen from '~/screens/post/create-post-screen.tsx';
-import ListPostUserScreen from '../screens/post/list-post-user';
 import EditPostScreen from '../screens/post/edit-post-screen';
+import ListPostUserScreen from '../screens/post/list-post-user';
 import PostUserScreen from '../screens/post/post-user-screen';
-import ListTourUserScreen from '~/screens/tour/list-tour-user-screen';
-import OrderDetailScreen from '~/screens/orders/order-detail';
+import ChangePasswordScreen from '../screens/profile/change-password-screen';
+import FamousScreen from '../screens/famous/famous-screen';
+import UpdateProfileScreen from '../screens/profile/update-profile-screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -53,6 +56,11 @@ export type AllNavigatorParams = {
   OrderDetailScreen: {
     id: string;
   };
+  ChangePasswordScreen: undefined;
+  FamousScreen: {
+    location: string;
+  };
+  UpdateProfileScreen: undefined;
 };
 export type CommonNavigatorParams = {
   LoginScreen: {
@@ -85,6 +93,11 @@ export type CommonNavigatorParams = {
   OrderDetailScreen: {
     id: string;
   };
+  ChangePasswordScreen: undefined;
+  FamousScreen: {
+    location: string;
+  };
+  UpdateProfileScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
@@ -150,6 +163,15 @@ export const AppStackNavigator = () => {
         <Stack.Screen
           name={routesName.OrderDetailScreen}
           component={OrderDetailScreen}
+        />
+        <Stack.Screen
+          name={routesName.ChangePasswordScreen}
+          component={ChangePasswordScreen}
+        />
+        <Stack.Screen name={routesName.FamousScreen} component={FamousScreen} />
+        <Stack.Screen
+          name={routesName.UpdateProfileScreen}
+          component={UpdateProfileScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

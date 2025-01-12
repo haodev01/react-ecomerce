@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -8,18 +7,18 @@ import {
   View,
 } from 'react-native';
 import {svgsNames} from '~/assets/svgs';
-import {ImagesStatic} from '~/assets/images';
-import {useInsets} from '~/hooks/use-insets.ts';
-import {navigate} from '~/routes/AppStackNavigator.tsx';
-import {routesName} from '~/constants';
 import {SvgItem} from '~/components/items';
 import {AvatarItem} from '~/components/items/avatar-item.tsx';
+import {routesName} from '~/constants';
 import {useAuth} from '~/hooks/use-auth.tsx';
+import {useInsets} from '~/hooks/use-insets.ts';
+import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {formatCurrency} from '../../helpers';
 
 export const LayoutHome = ({children}: any) => {
   const {styleInsets, bottom} = useInsets();
 
-  const {isLogged} = useAuth();
+  const {isLogged, account} = useAuth();
 
   const isRouteHome = true;
 
@@ -32,8 +31,9 @@ export const LayoutHome = ({children}: any) => {
       paddingBottom: Math.max(bottom, 16) + 84,
     },
   });
+  console.log({account});
 
-  const labelUser = isLogged ? 'haonc' : 'Guest';
+  const labelUser = isLogged ? account?.username : 'Guest';
 
   return (
     <View className="w-full flex-1 relative" style={[styleInsets.pt]}>
@@ -54,7 +54,9 @@ export const LayoutHome = ({children}: any) => {
             </View>
             {isLogged && (
               <View>
-                <Text className="font-bold text-base text-white">100$</Text>
+                <Text className="font-bold text-base text-white">
+                  {formatCurrency(account?.availableBalance)}
+                </Text>
               </View>
             )}
           </View>

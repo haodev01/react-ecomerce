@@ -84,7 +84,7 @@ const TourDetailScreen = (props: Props) => {
         <ScrollView
           className="mt-4 px-4 flex-1 "
           showsVerticalScrollIndicator={false}>
-          <Text className="text-xl  font-bold mt-2">{tourDetail?.name}</Text>
+          <Text className="text-2xl  font-bold mt-2">{tourDetail?.name}</Text>
           <ScrollView horizontal={true} className="mt-4">
             {tourDetail?.images?.map((image: any, index: number) => (
               <Image
@@ -142,7 +142,6 @@ const TourDetailScreen = (props: Props) => {
             title="Chọn ngày"
             onConfirm={date => {
               setIsShowFilterDate(false);
-              console.log(date);
               setDate(date);
             }}
             onCancel={() => {
@@ -174,7 +173,11 @@ const TourDetailScreen = (props: Props) => {
             />
           </View>
         </View>
-        <DialogContact visible={visible} onHide={() => setVisible(false)} />
+        <DialogContact
+          tourGuideId={tourDetail?.tourGuideId}
+          visible={visible}
+          onHide={() => setVisible(false)}
+        />
       </View>
     </LayoutCommon>
   );

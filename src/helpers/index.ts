@@ -7,6 +7,10 @@ export function validateEmail(email: string) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email);
 }
+export function onValidatePhone(phone: string) {
+  const regex = /^(0[3|5|7|8|9][0-9]{9})$/;
+  return regex.test(phone);
+}
 export const formatVND = (amount: number) => {
   return new Intl.NumberFormat('vi-VN', {
     style: 'currency',

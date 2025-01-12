@@ -3,7 +3,7 @@ import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
 import {formatVND} from '~/helpers';
 import {AppButton} from '~/components/common';
-
+import React from 'react';
 interface Props {
   item: any;
   classNameCustom?: string;
@@ -25,13 +25,13 @@ export const TourItem = (props: Props) => {
         source={{uri: item?.images[0]?.url}}
         className={`w-full h-60 rounded-xl ${customImage}`}
       />
-      <Text className="text-base font-bold my-1" numberOfLines={1}>
+      <Text className="text-xl font-bold my-1" numberOfLines={1}>
         {item?.name}
       </Text>
-      <Text>{item?.description}</Text>
-      {/*<Text>Khởi hành: {item?.pickupLocation}</Text>*/}
-      {/*<Text className="my-1">Ngày khởi hành: {item?.departureDate}</Text>*/}
-      {/*<Text>Số chỗ còn nhận: {item?.departureDate}</Text>*/}
+      <Text numberOfLines={3} className="text-base">
+        {item?.description}
+      </Text>
+
       <Text className="text-base font-medium mt-2">Giá từ:</Text>
       <Text className="text-lg font-bold text-primary " numberOfLines={3}>
         {formatVND(item?.basePrice)}

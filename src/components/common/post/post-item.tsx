@@ -23,10 +23,10 @@ export const PostItem = (props: Props) => {
         source={{uri: item?.image}}
         className={`w-full h-60 rounded-xl ${customImage}`}
       />
-      <Text className="text-base font-bold my-1" numberOfLines={1}>
+      <Text className="text-xl font-bold my-1" numberOfLines={1}>
         {item?.title}
       </Text>
-      <View className="text-md">
+      <View className="text-lg">
         <RenderHtml source={item?.currentContent ?? ''} />
       </View>
     </TouchableOpacity>

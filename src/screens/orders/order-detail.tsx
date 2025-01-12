@@ -8,17 +8,16 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {RenderHtml} from '~/components/common/render-html.tsx';
+import Collapse from '~/components/common/collapse.tsx';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
 import {listApi} from '~/constants';
-import {ORDER_DETAIL} from '~/constants/data.ts';
 import {useFetch} from '~/hooks/use-fetch.tsx';
 import {useToast} from '~/hooks/use-toast.ts';
 import {CommonNavigatorParams, goBack} from '~/routes/AppStackNavigator.tsx';
 import {AppButton} from '../../components/common';
 import {DialogBase} from '../../components/common/modal/dialog-base';
 import {calculateDays, formatCurrency} from '../../helpers';
-import Collapse from '~/components/common/collapse.tsx';
+import {useLogin} from '../../hooks/use-login';
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'OrderDetailScreen'>;
 
@@ -33,6 +32,7 @@ const OrderDetailScreen = (props: Props) => {
   const [orderDetail, setOrderDetail] = useState<any>({});
   const {getManual, deleteManual, putManual} = useFetch();
   const {showToast} = useToast();
+  const {getProfile} = useLogin();
 
   const getOrderDetail = async () => {
     setIsLoading(true);
@@ -119,6 +119,7 @@ const OrderDetailScreen = (props: Props) => {
       .then(async (response: any) => {
         if (response.statusCode === 200) {
           await getOrderDetail();
+          await getProfile();
           showToast('Thanh toán chuyến đi thành công', 'success');
         } else {
           showToast('Thanh toán thất bại', 'error');
@@ -154,6 +155,7 @@ const OrderDetailScreen = (props: Props) => {
       .then(async (response: any) => {
         if (response.statusCode === 200) {
           await getOrderDetail();
+          await getProfile();
           showToast('Thanh toán chuyến đi thành công', 'success');
         } else {
           showToast('Thanh toán thất bại', 'error');

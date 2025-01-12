@@ -9,6 +9,8 @@ import {
 } from '~/routes/AppStackNavigator.tsx';
 import {routesName} from '~/constants';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React from 'react';
+
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'LoginScreen'>;
 const LoginScreen = (props: Props) => {
   const {route} = props;

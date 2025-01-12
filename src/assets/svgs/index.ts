@@ -14,7 +14,11 @@ import IconCheckCircle from './icon-check-circle.svg';
 import ArrowRight from './arrow-right.svg';
 import IconLogout from './icon-logout.svg';
 import IconCart from './icon-cart.svg';
+import IconPassword from './icon-password.svg';
+import IconCreatePost from './icon-create-post.svg';
+import IconMoney from './icon-money.svg';
 export const SvgStatic = {
+  IconMoney,
   IconBack,
   IconHome,
   IconHomeActive,
@@ -30,6 +34,8 @@ export const SvgStatic = {
   ArrowRight,
   IconLogout,
   IconCart,
+  IconPassword,
+  IconCreatePost,
 };
 
 export const svgsNames = {
@@ -48,4 +54,7 @@ export const svgsNames = {
   ArrowRight: 'ArrowRight',
   IconLogout: 'IconLogout',
   IconCart: 'IconCart',
+  IconPassword: 'IconPassword',
+  IconCreatePost: 'IconCreatePost',
+  IconMoney: 'IconMoney',
 };

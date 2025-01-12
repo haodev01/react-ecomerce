@@ -1,13 +1,18 @@
 import {Image, Text, TouchableOpacity, View} from 'react-native';
-
+import React from 'react';
+import {routesName} from '../../../constants';
+import {navigate} from '../../../routes/AppStackNavigator';
 interface Props {
   item: any;
 }
 
 export const FamousItem = (props: Props) => {
   const {item} = props;
+  const onPress = () => {
+    navigate(routesName.FamousScreen, {location: item?.location});
+  };
   return (
-    <TouchableOpacity className="relative">
+    <TouchableOpacity className="relative" onPress={onPress}>
       <Image
         className="rounded-lg mr-2"
         width={160}

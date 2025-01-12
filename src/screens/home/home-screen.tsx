@@ -1,37 +1,56 @@
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-import {LayoutHome} from '~/components/layouts/layout-home.tsx';
 import {FamousItem} from '~/components/common/famous/famous-item.tsx';
 import {PostItem} from '~/components/common/post/post-item.tsx';
-import {tourList} from '~/constants/data.ts';
 import {TourItem} from '~/components/common/tour/tour-item.tsx';
-import {navigate} from '~/routes/AppStackNavigator.tsx';
+import {LayoutHome} from '~/components/layouts/layout-home.tsx';
 import {routesName} from '~/constants';
 import {usePost} from '~/hooks/use-post.ts';
 import {useTour} from '~/hooks/use-tour.ts';
+import {navigate} from '~/routes/AppStackNavigator.tsx';
+import React from 'react';
 
-const locations = [
+export const locations = [
   {
     id: 1,
     name: 'Ha Noi',
     image:
-      'https://media.travel.com.vn/LastMinute/lm__2412184_mbkshoppingmall.webp',
+      'https://res.cloudinary.com/dfoufefxg/image/upload/v1736617193/hoguom_hzwsse.jpg',
+    location: 'ha-noi',
   },
   {
     id: 2,
-    name: 'Hai Phong',
+    name: 'Nha Trang',
     image:
-      'https://media.travel.com.vn/LastMinute/lm__2412189_congvienhaclongdam.webp',
+      'https://res.cloudinary.com/dfoufefxg/image/upload/v1736617979/background_fyrsat.jpg',
+    location: 'nha-trang',
   },
   {
     id: 3,
-    name: 'Da Nang',
-    image: 'https://media.travel.com.vn/LastMinute/lm__24121710_catcat.webp',
+    name: 'Đà Nẵng',
+    image:
+      'https://res.cloudinary.com/dfoufefxg/image/upload/v1736617472/background_wnphb6.jpg',
+    location: 'da-nang',
   },
   {
     id: 4,
-    name: 'Hue',
+    name: 'Phu Quốc',
     image:
-      'https://media.travel.com.vn/Advertisings/bn_240925_KPSP1-tour-noi-dia-kich-cau.jpg',
+      'https://res.cloudinary.com/dfoufefxg/image/upload/v1736618180/background_eevpre.jpg',
+    location: 'phu-quoc',
+  },
+  {
+    id: 5,
+    name: 'Đà lạt',
+    image:
+      'https://res.cloudinary.com/dfoufefxg/image/upload/v1736618519/background_idghs7.jpg',
+    location: 'da-lat',
+  },
+  {
+    id: 5,
+    name: 'Hồ Chí Minh',
+    image:
+      'https://res.cloudinary.com/dfoufefxg/image/upload/v1736618342/background_kkcfxq.jpg',
+    location: 'ho-chi-minh',
   },
 ];
 
@@ -52,12 +71,12 @@ const HomeScreen = () => {
           </ScrollView>
         </View>
         <View className="mt-8">
-          <View className="flex flex-row justify-between">
-            <Text className="mb-2 text-lg font-bold text-gray-500 ">
+          <View className="flex flex-row justify-between mb-2 items-center">
+            <Text className="mb-2 text-2xl font-bold text-gray-500 ">
               Tour nổi bật
             </Text>
             <TouchableOpacity onPress={() => navigate(routesName.TourScreen)}>
-              <Text className="font-bold text-primary">Xem tất cả</Text>
+              <Text className="font-bold text-primary text-lg">Xem tất cả</Text>
             </TouchableOpacity>
           </View>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -67,9 +86,14 @@ const HomeScreen = () => {
           </ScrollView>
         </View>
         <View className="mt-8">
-          <Text className="mb-2 text-lg font-bold text-gray-500">
-            Bài viết nổi bật
-          </Text>
+          <View className="flex flex-row justify-between mb-2 items-center">
+            <Text className="mb-2 text-2xl font-bold text-gray-500 ">
+              Bài viết nổi bật
+            </Text>
+            <TouchableOpacity onPress={() => navigate(routesName.PostScreen)}>
+              <Text className="font-bold text-primary text-lg">Xem tất cả</Text>
+            </TouchableOpacity>
+          </View>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
             {listPost?.map((item, index) => {
               return <PostItem item={item} key={index} />;

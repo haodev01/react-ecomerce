@@ -1,6 +1,7 @@
 import {Text, TouchableOpacity, View} from 'react-native';
 import {SvgItem} from '~/components/items';
 import {svgsNames} from '~/assets/svgs';
+import React from 'react';
 interface Props {
   label?: string;
   onPressBack?: () => void;

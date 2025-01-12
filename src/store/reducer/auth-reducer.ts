@@ -10,6 +10,7 @@ export type User = {
 const initialState = {
   accessToken: '',
   user: null as User | null,
+  userInfo: {} as any,
 };
 
 const authSlice = createSlice({
@@ -22,8 +23,13 @@ const authSlice = createSlice({
     changeUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
     },
+    changeUserInfo(state, action: PayloadAction<any>) {
+      console.log('action.payload', action.payload);
+      state.userInfo = action.payload;
+    },
   },
 });
 
-export const {changeAccessToken, changeUser} = authSlice.actions;
+export const {changeAccessToken, changeUser, changeUserInfo} =
+  authSlice.actions;
 export default authSlice.reducer;

@@ -4,6 +4,8 @@ import {
   Platform,
   TouchableWithoutFeedback,
 } from 'react-native';
+import React from 'react';
+
 import {PropsWithChildren} from 'react';
 import {TheHeader} from '~/components/blocks/the-header.tsx';
 interface Props extends PropsWithChildren {

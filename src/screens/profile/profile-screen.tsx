@@ -1,12 +1,12 @@
-import {View, Text, BackHandler, TouchableOpacity, Linking} from 'react-native';
-import {goBack, navigate} from '~/routes/AppStackNavigator.tsx';
-import {routesName} from '~/constants';
-import {LayoutHome} from '~/components/layouts/layout-home.tsx';
-import {svgsNames} from '~/assets/svgs';
-import {TabMenuItem} from '~/components/common/tab-menu-item.tsx';
-import {useAuth} from '~/hooks/use-auth.tsx';
-import {AppButton} from '~/components/common';
 import React from 'react';
+import {Linking, Text, TouchableOpacity, View} from 'react-native';
+import {svgsNames} from '~/assets/svgs';
+import {AppButton} from '~/components/common';
+import {TabMenuItem} from '~/components/common/tab-menu-item.tsx';
+import {LayoutHome} from '~/components/layouts/layout-home.tsx';
+import {routesName} from '~/constants';
+import {useAuth} from '~/hooks/use-auth.tsx';
+import {goBack, navigate} from '~/routes/AppStackNavigator.tsx';
 import {DialogBase} from '../../components/common/modal/dialog-base';
 import {LINK_WEB} from '../../configs/api';
 
@@ -22,18 +22,24 @@ const ProfileScreen = () => {
       id: 1,
       label: 'Thông tin tài khoản',
       icon: svgsNames.IconProfile,
-      route: routesName.HomeScreen,
+      route: routesName.UpdateProfileScreen,
+    },
+    {
+      id: 1,
+      label: 'Đổi mật khẩu',
+      icon: svgsNames.IconPassword,
+      route: routesName.ChangePasswordScreen,
     },
     {
       id: 1,
       label: 'Viết bài',
-      icon: svgsNames.IconProfile,
+      icon: svgsNames.IconCreatePost,
       route: routesName.CreatePostScreen,
     },
     {
       id: 1,
       label: 'Danh sách bài viết',
-      icon: svgsNames.IconProfile,
+      icon: svgsNames.IconCreatePost,
       route: routesName.ListPostUserScreen,
     },
     {
@@ -45,7 +51,7 @@ const ProfileScreen = () => {
     {
       id: 1,
       label: 'Nạp tiền',
-      icon: svgsNames.IconProfile,
+      icon: svgsNames.IconMoney,
       action: 'deposit',
       handler: () => handleShowDeposit(),
     },

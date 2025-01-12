@@ -12,7 +12,7 @@ import {TourItem} from '~/components/common/tour/tour-item.tsx';
 import {DropdownAddress} from '~/components/common/dropdown/dropdown-address.tsx';
 import {AppButton} from '~/components/common';
 import {useTour} from '~/hooks/use-tour.ts';
-
+import React from 'react';
 const TourScreen = () => {
   const {
     listTour,
@@ -40,7 +40,7 @@ const TourScreen = () => {
   return (
     <LayoutCommon label="Danh sách tour" onBack={goBack}>
       <View className="flex-1 w-full">
-        <View className="bg-white py-2 px-4 mb-1 shadow-lg">
+        <View className="bg-white py-2 px-4 mb-1 shadow-lg border-b border-gray-200">
           <View className="flex flex-row mb-2">
             <DropdownAddress
               listItem={listProvince}
@@ -88,7 +88,7 @@ const TourScreen = () => {
           />
         </View>
         <ScrollView
-          className="pb-[120px] px-4 "
+          className="pb-[120px] px-4 mt-6"
           showsVerticalScrollIndicator={false}>
           {isLoading && <ActivityIndicator size="large" color="#1677ff" />}
           {listTour?.map((item, index) => (

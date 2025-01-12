@@ -3,7 +3,11 @@ import {useState} from 'react';
 import {useFetch} from '~/hooks/use-fetch.tsx';
 import {listApi, routesName} from '~/constants';
 import {useAppDispatch} from '~/store/hooks.ts';
-import {changeAccessToken, changeUser} from '~/store/reducer/auth-reducer.ts';
+import {
+  changeAccessToken,
+  changeUser,
+  changeUserInfo,
+} from '~/store/reducer/auth-reducer.ts';
 import {navigate} from '~/routes/AppStackNavigator.tsx';
 import {useToast} from '~/hooks/use-toast.ts';
 
@@ -15,7 +19,7 @@ export const useLogin = (screen = '', id = '') => {
     password: '',
   });
 
-  const {postManual} = useFetch();
+  const {postManual, getManual} = useFetch();
   const dispatch = useAppDispatch();
   const {showToast} = useToast();
 
@@ -50,6 +54,17 @@ export const useLogin = (screen = '', id = '') => {
 
     return false;
   };
+  const getProfile = async (accessToken = '') => {
+    getManual(listApi.AUTH_ME, {
+      accessToken,
+    })
+      .then((response: any) => {
+        dispatch(changeUserInfo(response.returnValue));
+      })
+      .catch(error => {
+        showToast(error?.response?.data?.info?.message, 'error');
+      });
+  };
 
   const handleLogin = async () => {
     const isValidated = onValidate();
@@ -60,11 +75,12 @@ export const useLogin = (screen = '', id = '') => {
       email,
       password,
     })
-      .then((response: any) => {
+      .then(async (response: any) => {
         showToast('Đăng nhập thành công', 'success');
         const data = response.returnValue;
         dispatch(changeUser(data));
         dispatch(changeAccessToken(data.accessToken));
+        await getProfile(data.accessToken);
         if (screen) {
           return navigate(
             screen === routesName.HomeScreen ? routesName.TabHome : screen,
@@ -89,5 +105,6 @@ export const useLogin = (screen = '', id = '') => {
     setPassword,
     messageError,
     handleLogin,
+    getProfile,
   };
 };
