@@ -52,7 +52,7 @@ const PostDetailScreen = (props: Props) => {
           </TouchableOpacity>
         </View>
         <Text className="text-2xl font-bold mt-2">{postDetail?.title}</Text>
-        <View className="text-lg mt-1">
+        <View className="text-lg mt-1 text-justify">
           <RenderHtml source={postDetail?.currentContent} />
         </View>
       </ScrollView>

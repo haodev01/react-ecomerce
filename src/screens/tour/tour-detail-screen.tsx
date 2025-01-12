@@ -84,7 +84,9 @@ const TourDetailScreen = (props: Props) => {
         <ScrollView
           className="mt-4 px-4 flex-1 "
           showsVerticalScrollIndicator={false}>
-          <Text className="text-2xl  font-bold mt-2">{tourDetail?.name}</Text>
+          <Text className="text-2xl font-bold mt-2 text-justify">
+            {tourDetail?.name}
+          </Text>
           <ScrollView horizontal={true} className="mt-4">
             {tourDetail?.images?.map((image: any, index: number) => (
               <Image
@@ -94,7 +96,7 @@ const TourDetailScreen = (props: Props) => {
               />
             ))}
           </ScrollView>
-          <Text className="text-base text-align mt-4">
+          <Text className="text-base text-justify mt-4">
             {tourDetail?.description}
           </Text>
         </ScrollView>

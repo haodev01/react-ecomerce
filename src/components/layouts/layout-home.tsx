@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -41,7 +42,16 @@ export const LayoutHome = ({children}: any) => {
         <View className="w-full h-full bg-primary" />
       </View>
       <View className="w-full px-4 h-11 flex-row items-center justify-between">
-        <AvatarItem width={36} />
+        {account?.avatar ? (
+          <Image
+            source={{uri: account?.avatar}}
+            className="w-10 h-10 rounded-full"
+            width={40}
+            height={40}
+          />
+        ) : (
+          <AvatarItem width={40} />
+        )}
         {isRouteHome ? (
           <View className="flex-1 flex-row items-center justify-between">
             <View className="flex-1 flex-col justify-start ml-2">
@@ -71,7 +81,7 @@ export const LayoutHome = ({children}: any) => {
                 {labelUser}
               </Text>
               <Text className="text-xs text-white" numberOfLines={1}>
-                haonc
+                Dai
               </Text>
             </View>
             <View>
