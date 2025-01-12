@@ -32,7 +32,6 @@ export const LayoutHome = ({children}: any) => {
       paddingBottom: Math.max(bottom, 16) + 84,
     },
   });
-  console.log({account});
 
   const labelUser = isLogged ? account?.username : 'Guest';
 

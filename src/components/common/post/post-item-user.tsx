@@ -13,7 +13,6 @@ interface Props {
 }
 export const PostItemUser = (props: Props) => {
   const {item, classNameCustom = '', customImage = '', onDelete} = props;
-  console.log(item);
   return (
     <View className={`mr-2 w-[300px] ${classNameCustom}`}>
       <View className="relative">

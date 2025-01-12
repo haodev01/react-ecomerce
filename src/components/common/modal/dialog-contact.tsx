@@ -90,8 +90,7 @@ export const DialogContact = (props: Props) => {
       message,
       tourGuideId: 2,
     })
-      .then(response => {
-        console.log(response);
+      .then(() => {
         showToast('Gửi thông tin tư vấn thành công', 'success');
       })
       .catch(error => {

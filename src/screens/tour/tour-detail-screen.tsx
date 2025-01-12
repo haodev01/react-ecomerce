@@ -1,30 +1,31 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
+  Linking,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
+import DatePicker from 'react-native-date-picker';
+import {svgsNames} from '~/assets/svgs';
+import {AppButton} from '~/components/common';
+import {DialogContact} from '~/components/common/modal/dialog-contact.tsx';
+import {SvgItem} from '~/components/items';
 import {LayoutCommon} from '~/components/layouts/layout-common.tsx';
+import {listApi, routesName} from '~/constants';
+import {formatDateDDMMYYYY, formatDateYYYYMMDD, formatVND} from '~/helpers';
+import {useAuth} from '~/hooks/use-auth.tsx';
+import {useFetch} from '~/hooks/use-fetch.tsx';
+import {useToast} from '~/hooks/use-toast.ts';
 import {
   CommonNavigatorParams,
   getCurrentRouteName,
   goBack,
   navigate,
 } from '~/routes/AppStackNavigator.tsx';
-import {formatDateDDMMYYYY, formatDateYYYYMMDD, formatVND} from '~/helpers';
-import {AppButton} from '~/components/common';
-import {SvgItem} from '~/components/items';
-import {svgsNames} from '~/assets/svgs';
-import React, {useEffect, useState} from 'react';
-import {DialogContact} from '~/components/common/modal/dialog-contact.tsx';
-import {listApi, routesName} from '~/constants';
-import {useAuth} from '~/hooks/use-auth.tsx';
-import {useFetch} from '~/hooks/use-fetch.tsx';
-import {useToast} from '~/hooks/use-toast.ts';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import DatePicker from 'react-native-date-picker';
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'PostDetailScreen'>;
 const TourDetailScreen = (props: Props) => {
@@ -43,7 +44,6 @@ const TourDetailScreen = (props: Props) => {
   const getTourDetail = async () => {
     getManual(`${listApi.GET_TOUR}/${id}`, {})
       .then((response: any) => {
-        console.log(response);
         setTourDetail(response?.returnValue);
       })
       .catch(error => {
@@ -69,8 +69,7 @@ const TourDetailScreen = (props: Props) => {
       startDate: formatDateYYYYMMDD(date),
       numberOfMember: Number(numberOfMember),
     })
-      .then(async response => {
-        console.log(response);
+      .then(async () => {
         showToast('Đặt tour thành công', 'success');
       })
       .catch(error => {
@@ -159,9 +158,11 @@ const TourDetailScreen = (props: Props) => {
           </View>
           <View className="flex flex-row mt-4">
             <View className="flex flex-row  mr-6">
-              <TouchableOpacity className="w-10 h-10 bg-primary rounded-md mr-2 flex items-center justify-center">
-                <SvgItem name={svgsNames.IconPhone} />
-              </TouchableOpacity>
+              {/* <TouchableOpacity
+                onPress={() => callPhoneNumber('0365800512')}
+                className="w-10 h-10 bg-primary rounded-md mr-2 flex items-center justify-center">
+                <SvgItem name={svgsNames.IconPhone} /> */}
+              {/* </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={() => setVisible(true)}
                 className="w-10 h-10 bg-primary rounded-md mr-2 flex items-center justify-center">

@@ -12,7 +12,6 @@ interface Props {
 export const CommentItem = (props: Props) => {
   const {comment, onDelete, onEdit} = props;
   const {user} = useAuth();
-  console.log({comment});
   return (
     <View className="bg-gray-300  rounded-lg w-full p-2 mb-2">
       <View className="flex  flex-row justify-between ">

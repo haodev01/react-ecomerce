@@ -43,7 +43,6 @@ const EditPostScreen = (props: Props) => {
     setIsLoading(true);
     getManual(`${listApi.POST_DETAIL}/${id}`, {})
       .then((response: any) => {
-        console.log(response?.returnValue);
         const item = POST_TOPIC.find(
           item => item.value === response?.returnValue?.topic,
         );

@@ -37,7 +37,6 @@ export const Editor = (props: Props) => {
               ref={richText}
               onChange={descriptionText => {
                 onChange(descriptionText);
-                console.log('descriptionText:', descriptionText);
               }}
             />
           </KeyboardAvoidingView>

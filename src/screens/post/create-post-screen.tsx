@@ -45,8 +45,7 @@ const CreatePostScreen = () => {
       image: imageUrl,
       topic: itemSelect?.value,
     })
-      .then(async response => {
-        console.log(response);
+      .then(async () => {
         showToast('Tạo bài viết thành công', 'success');
         await navigate(routesName.TabHome, {}, true);
       })
