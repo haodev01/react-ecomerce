@@ -226,7 +226,7 @@ const OrderDetailScreen = (props: Props) => {
               <ScrollView
                 className="mt-4 px-4 flex-1 "
                 showsVerticalScrollIndicator={false}>
-                <Text className="text-xl  font-bold mt-2">
+                <Text className="text-xl  font-bold mt-2 text-justify">
                   {orderDetail?.tour?.name}
                 </Text>
                 <View>
@@ -331,15 +331,15 @@ const OrderDetailScreen = (props: Props) => {
                     <Text className="font-bold pb-2 text-xl">
                       QUY TRÌNH ĐĂNG KÝ TOUR
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Đợt 01: Quý khách thanh toán 10% giá trị của tour ngay khi
                       đăng ký mua tour.
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Đợt 02: Quý khách thanh toán 100% giá trị của tour trước
                       lịch khởi hành 07 ngày.
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       *Lưu ý: Đối với những tour quý khách đăng ký sát lịch khởi
                       hành từ 03 cho đến 07 ngày, quý khách vui lòng liên hệ
                       1900 3398 để xác nhận số chỗ còn lại và thanh toán 100%
@@ -364,7 +364,7 @@ const OrderDetailScreen = (props: Props) => {
                       <Text className="text-green-500">+</Text> Trường hợp hủy
                       bỏ dịch vụ từ Quý khách hàng:
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Trong trường hợp không thể tiếp tục sử dụng dịch vụ/ tour,
                       Quý khách phải thông báo cho Công ty bằng văn bản hoặc
                       email (Không giải quyết các trường hợp liên hệ chuyển/ hủy
@@ -372,12 +372,12 @@ const OrderDetailScreen = (props: Props) => {
                       Biên bản đăng ký tour/ dịch vụ & biên lai đóng tiền đến
                       văn phòng Vietnam Booking để làm thủ tục hủy/ chuyển tour.
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Các trường hợp chuyển/ đổi dịch vụ/ tour: Cty sẽ căn cứ
                       xem xét tình hình thực tế để tính phí và có mức hỗ trợ Quý
                       khách hàng
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Trường hợp hủy dịch vụ/ tour: Quý khách phải chịu chi phí
                       hủy tour/ dịch vụ theo quy định của Ktravel và toàn bộ phí
                       ngân hàng cho việc thanh toán trực tuyến.
@@ -386,27 +386,27 @@ const OrderDetailScreen = (props: Props) => {
                       <Text className="text-green-500">+</Text> Phí hủy được quy
                       định như sau:
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Ngay sau khi đặt cọc hoặc thanh toán hoặc trước 10 ngày:
                       phí hủy 30% tiền tour.
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Hủy 7 ngày trước ngày khởi hành: phí hủy 50% tiền tour.
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Hủy 3 ngày trước ngày khởi hành: phí hủy 85% tiền tour
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Hủy 05 ngày trước ngày khởi hành: phí hủy 100% tiền tour
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Trường hợp quý khách đến trễ giờ khởi hành được tính là
                       hủy 05 ngày trước ngày khởi hành.
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Giai đoạn Lễ/Tết: không hoàn, không hủy, không đổi.
                     </Text>
-                    <Text className="pb-1 text-base">
+                    <Text className="pb-1 text-base text-justify">
                       Việc huỷ bỏ chuyến đi phải được thông báo trực tiếp với
                       Công ty hoặc qua fax, email, tin nhắn và phải được Công ty
                       xác nhận. Việc huỷ bỏ bằng điện thoại không được chấp

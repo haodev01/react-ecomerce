@@ -51,7 +51,7 @@ export const TourItemUser = (props: Props) => {
           <Text className="text-white font-medium">{getStatusOrder()}</Text>
         </View>
       </View>
-      <Text className="text-base font-bold my-1" numberOfLines={3}>
+      <Text className="text-base font-bold my-1 text-justify" numberOfLines={3}>
         {item?.tour?.name}
       </Text>
       <View className="flex flex-row items-center">
