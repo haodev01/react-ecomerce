@@ -71,7 +71,7 @@ const FamousScreen = (props: Props) => {
             <Text className="text-3xl text-left text-black font-bold mb-4">
               Tổng quan
             </Text>
-            <Text className="text-base font-medium mb-1">
+            <Text className="text-base font-medium mb-1 text-justify">
               {famous?.overview.content}
             </Text>
             <ScrollView horizontal={true} className="mt-2">
@@ -91,7 +91,7 @@ const FamousScreen = (props: Props) => {
             <Text className="text-3xl text-left text-black font-bold mb-4">
               Ẩm thực
             </Text>
-            <Text className="text-base font-medium mb-1">
+            <Text className="text-base font-medium mb-1 text-justify">
               {famous?.cuisine.content}
             </Text>
             <Image
@@ -104,7 +104,7 @@ const FamousScreen = (props: Props) => {
             <Text className="text-3xl text-left text-black font-bold mb-4">
               Quận huyện
             </Text>
-            <Text className="text-base font-medium mb-1">
+            <Text className="text-base font-medium mb-1 text-justify">
               {famous?.district.content}
             </Text>
             <Image
