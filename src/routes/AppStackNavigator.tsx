@@ -26,6 +26,8 @@ import PostUserScreen from '../screens/post/post-user-screen';
 import ChangePasswordScreen from '../screens/profile/change-password-screen';
 import FamousScreen from '../screens/famous/famous-screen';
 import UpdateProfileScreen from '../screens/profile/update-profile-screen';
+import WithDrawalMoneyScreen from '../screens/profile/with-drawal-money-screen';
+import HistoryTransactionScreen from '../screens/profile/history-transaction';
 
 const Stack = createNativeStackNavigator();
 
@@ -172,6 +174,14 @@ export const AppStackNavigator = () => {
         <Stack.Screen
           name={routesName.UpdateProfileScreen}
           component={UpdateProfileScreen}
+        />
+        <Stack.Screen
+          name={routesName.WithdrawalMoneyScreen}
+          component={WithDrawalMoneyScreen}
+        />
+        <Stack.Screen
+          name={routesName.HistoryTransaction}
+          component={HistoryTransactionScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

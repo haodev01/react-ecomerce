@@ -22,6 +22,8 @@ export const listApi = {
   UPDATE_PROFILE: 'users/profile',
   AUTH_ME: 'auth/me',
   CHANGE_PASSWORD: 'users/change-password',
+  TRANSACTION_USER_WITHDRAW: 'transactions/user-withdraw',
+  TRANSACTION_MY_REQUEST_WITHDRAW: 'transactions/my-request-witrhdraw',
 };
 
 export const routesName = {
@@ -46,6 +48,8 @@ export const routesName = {
   FamousScreen: 'FamousScreen',
   UpdateProfileScreen: 'UpdateProfileScreen',
   PostScreen: 'PostScreen',
+  WithdrawalMoneyScreen: 'WithdrawalMoneyScreen',
+  HistoryTransaction: 'HistoryTransaction',
 };
 
 export const FamousList = [

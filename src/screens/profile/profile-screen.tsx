@@ -26,6 +26,12 @@ const ProfileScreen = () => {
     },
     {
       id: 1,
+      label: 'Lịch sử giao dịch',
+      icon: svgsNames.IconMoney,
+      route: routesName.HistoryTransaction,
+    },
+    {
+      id: 1,
       label: 'Đổi mật khẩu',
       icon: svgsNames.IconPassword,
       route: routesName.ChangePasswordScreen,
@@ -54,6 +60,12 @@ const ProfileScreen = () => {
       icon: svgsNames.IconMoney,
       action: 'deposit',
       handler: () => handleShowDeposit(),
+    },
+    {
+      id: 1,
+      label: 'Rút tiền',
+      icon: svgsNames.IconMoney,
+      route: routesName.WithdrawalMoneyScreen,
     },
     {
       id: 1,

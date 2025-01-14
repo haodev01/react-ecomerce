@@ -26,7 +26,7 @@ export const PostItem = (props: Props) => {
       <Text className="text-xl font-bold my-1" numberOfLines={1}>
         {item?.title}
       </Text>
-      <View className="text-lg">
+      <View className="text-lg max-h-[52px]">
         <RenderHtml source={item?.currentContent ?? ''} />
       </View>
     </TouchableOpacity>
