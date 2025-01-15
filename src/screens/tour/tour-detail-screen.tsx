@@ -26,6 +26,7 @@ import {
   goBack,
   navigate,
 } from '~/routes/AppStackNavigator.tsx';
+import {DialogBase} from '~/components/common/modal/dialog-base.tsx';
 
 type Props = NativeStackScreenProps<CommonNavigatorParams, 'PostDetailScreen'>;
 const TourDetailScreen = (props: Props) => {
@@ -35,6 +36,7 @@ const TourDetailScreen = (props: Props) => {
   const [date, setDate] = useState(new Date());
   const [isShowFilterDate, setIsShowFilterDate] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [visiblePhone, setVisiblePhone] = useState(false);
   const [tourDetail, setTourDetail] = useState<any>();
   const [numberOfMember, setNumberOfMember] = useState('1');
   const {isLogged} = useAuth();
@@ -121,6 +123,7 @@ const TourDetailScreen = (props: Props) => {
                   {/*{isShowFilterDate && <AnimationBlinking classWind="ml-[0.5]" />}*/}
                 </View>
               </View>
+
               <SvgItem name={svgsNames.IconContact} />
             </TouchableOpacity>
             <View className="flex-1">
@@ -158,11 +161,11 @@ const TourDetailScreen = (props: Props) => {
           </View>
           <View className="flex flex-row mt-4">
             <View className="flex flex-row  mr-6">
-              {/* <TouchableOpacity
-                onPress={() => callPhoneNumber('0365800512')}
-                className="w-10 h-10 bg-primary rounded-md mr-2 flex items-center justify-center">
-                <SvgItem name={svgsNames.IconPhone} /> */}
-              {/* </TouchableOpacity> */}
+              <TouchableOpacity
+                className="w-10 h-10 bg-primary rounded-md mr-2 flex items-center justify-center"
+                onPress={() => setVisiblePhone(true)}>
+                <SvgItem name={svgsNames.IconPhone} />
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => setVisible(true)}
                 className="w-10 h-10 bg-primary rounded-md mr-2 flex items-center justify-center">
@@ -181,6 +184,21 @@ const TourDetailScreen = (props: Props) => {
           visible={visible}
           onHide={() => setVisible(false)}
         />
+        <DialogBase visible={visiblePhone}>
+          <View>
+            <Text className="text-xl font-bold text-left">Thông báo</Text>
+            <Text className="text-base text-left mt-1">
+              Vui lòng liên hệ SDT{' '}
+              <Text className="text-primary font-bold">
+                {tourDetail?.tourGuide?.phone}
+              </Text>{' '}
+              để được hỗ trợ!
+            </Text>
+            <View className="mt-4 border-t border-gray-300 ">
+              <AppButton label="OK" onPress={() => setVisiblePhone(false)} />
+            </View>
+          </View>
+        </DialogBase>
       </View>
     </LayoutCommon>
   );
