@@ -1,16 +1,63 @@
-import React, {useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {LayoutCommon} from '../../components/layouts/layout-common';
 import {listApi} from '../../constants';
 import {useFetch} from '../../hooks/use-fetch';
 import {goBack} from '../../routes/AppStackNavigator';
+import {formatCurrency, formatDateDDMMYYYY} from '~/helpers';
 
 const HistoryItem = (props: any) => {
   const {item} = props;
+
+  const getStatus = useCallback(() => {
+    switch (item?.status) {
+      case '3':
+        return 'Chờ xử lý';
+      case '0':
+        return 'Thất bại';
+      case '1':
+        return 'Thành công';
+      default:
+        return 'Không xác định';
+    }
+  }, [item?.status]);
+
+  const getStyleStatus = useCallback(() => {
+    switch (item?.status) {
+      case '3':
+        return 'bg-yellow-500';
+      case '0':
+        return 'bg-red-500';
+      case '1':
+        return 'bg-green-500';
+      default:
+        return 'bg-gray-500';
+    }
+  }, [item?.status]);
+
   return (
-    <View className="bg-white shadqow rounded-lg p-4">
-      <View>
-        <Text className="text-xl font-bold">Xy2323232hy</Text>
+    <View className="bg-white shadqow rounded-lg p-2 mb-2">
+      <View className="flex items-start flex-row justify-between">
+        <View>
+          <Text className="text-base font-medium ">
+            Mã giao dịch: {item?.id}
+          </Text>
+          <Text className="my-1">
+            Ngày rút: {formatDateDDMMYYYY(item?.time)}
+          </Text>
+          <Text>Số tiền: {formatCurrency(item?.amount)}</Text>
+        </View>
+        <View>
+          <View className={`${getStyleStatus()} p-1 rounded-md`}>
+            <Text className="text-white">{getStatus()}</Text>
+          </View>
+        </View>
       </View>
     </View>
   );
@@ -41,7 +88,6 @@ const HistoryTransactionScreen = () => {
     getManual(listApi.TRANSACTION_MY_REQUEST_WITHDRAW, {
       startDate: '2024-01-12',
       endDate: '2025-09-01',
-      isHistory: '3',
     })
       .then(response => {
         console.log(response);
@@ -57,10 +103,14 @@ const HistoryTransactionScreen = () => {
   useEffect(() => {
     getListTransaction();
   }, [tabActive?.value]);
+  console.log(listTransaction);
   return (
     <LayoutCommon label="Lịch sử giao dịch" onBack={goBack}>
-      <View className="px-4 mt-6">
-        <View className="px-4 mb-6  flex flex-row items-center justify-center">
+      <ScrollView className="px-4 mt-6">
+        <View className="mb-4">
+          <Text className="text-xl font-bold">Danh sách lịch sử giao dịch</Text>
+        </View>
+        <View className="px-4 mb-6  flex flex-row items-center justify-center hidden">
           {LIST_STATUS.map((item, index) => {
             return (
               <TouchableOpacity
@@ -79,10 +129,18 @@ const HistoryTransactionScreen = () => {
             );
           })}
         </View>
-        {listTransaction?.map((item, index) => {
-          return <HistoryItem item={item} key={index} />;
-        })}
-      </View>
+        {isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+        {!isLoading && listTransaction?.length === 0 && (
+          <View className="flex items-center justify-center">
+            <Text className="text-gray-500">Không có lịch sử giao dịch</Text>
+          </View>
+        )}
+        {!isLoading &&
+          !!listTransaction?.length &&
+          listTransaction?.map((item, index) => {
+            return <HistoryItem item={item} key={index} />;
+          })}
+      </ScrollView>
     </LayoutCommon>
   );
 };
