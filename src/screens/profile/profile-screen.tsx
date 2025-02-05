@@ -50,6 +50,12 @@ const ProfileScreen = () => {
     },
     {
       id: 1,
+      label: 'Danh sách hướng dẫn viên',
+      icon: svgsNames.IconCreatePost,
+      route: routesName.ListTourGuide,
+    },
+    {
+      id: 1,
       label: 'Chuyến đi của bạn',
       icon: svgsNames.IconProfile,
       route: routesName.ListTourUserScreen,

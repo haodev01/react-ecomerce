@@ -28,6 +28,8 @@ import FamousScreen from '../screens/famous/famous-screen';
 import UpdateProfileScreen from '../screens/profile/update-profile-screen';
 import WithDrawalMoneyScreen from '../screens/profile/with-drawal-money-screen';
 import HistoryTransactionScreen from '../screens/profile/history-transaction';
+import ListTourGuideScreen from '~/screens/tour-guide/tour-guide-screen.tsx';
+import TourGuideDetailScreen from '~/screens/tour-guide/tour-guide-detail-screen.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -63,6 +65,7 @@ export type AllNavigatorParams = {
     location: string;
   };
   UpdateProfileScreen: undefined;
+  ListTourGuideScreen: undefined;
 };
 export type CommonNavigatorParams = {
   LoginScreen: {
@@ -100,6 +103,7 @@ export type CommonNavigatorParams = {
     location: string;
   };
   UpdateProfileScreen: undefined;
+  ListTourGuideScreen: undefined;
 };
 const navigationRef = createNavigationContainerRef<AllNavigatorParams>();
 
@@ -182,6 +186,14 @@ export const AppStackNavigator = () => {
         <Stack.Screen
           name={routesName.HistoryTransaction}
           component={HistoryTransactionScreen}
+        />
+        <Stack.Screen
+          name={routesName.ListTourGuide}
+          component={ListTourGuideScreen}
+        />
+        <Stack.Screen
+          name={routesName.TourGuideDetailScreen}
+          component={TourGuideDetailScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -24,6 +24,8 @@ export const listApi = {
   CHANGE_PASSWORD: 'users/change-password',
   TRANSACTION_USER_WITHDRAW: 'transactions/user-withdraw',
   TRANSACTION_MY_REQUEST_WITHDRAW: 'transactions/my-request-witrhdraw',
+  TOUR_GUIDE: 'tour-guide',
+  TOUR_GUIDE_GUEST: 'tour-guide/guest',
 };
 
 export const routesName = {
@@ -50,6 +52,8 @@ export const routesName = {
   PostScreen: 'PostScreen',
   WithdrawalMoneyScreen: 'WithdrawalMoneyScreen',
   HistoryTransaction: 'HistoryTransaction',
+  ListTourGuide: 'ListTourGuide',
+  TourGuideDetailScreen: 'TourGuideDetailScreen',
 };
 
 export const FamousList = [
